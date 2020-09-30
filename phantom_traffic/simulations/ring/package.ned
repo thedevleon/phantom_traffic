@@ -18,4 +18,4 @@
 // along with this program; if not, see <http://www.gnu.org/licenses/>.
 //
 
-package phantom_traffic.examples.phantom_traffic;
+package ring;
