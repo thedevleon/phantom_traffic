@@ -45,7 +45,7 @@ void DemoBaseApplLayer::initialize(int stage)
         annotations = AnnotationManagerAccess().getIfExists();
         ASSERT(annotations);
 
-        mac = FindModule<DemoBaseApplLayerToMac1609_4Interface*>::findSubModule(getParentModule());
+        mac = FindModule<BaseApplLayerToMac1609_4Interface*>::findSubModule(getParentModule());
         ASSERT(mac);
 
         // read parameters

@@ -24,13 +24,13 @@
 
 #include <map>
 
+#include "../../../../../nes/veins/src/veins/modules/mac/ieee80211p/BaseApplLayerToMac1609_4Interface.h"
 #include "veins/base/modules/BaseApplLayer.h"
 #include "veins/modules/utility/Consts80211p.h"
 #include "veins/modules/messages/BaseFrame1609_4_m.h"
 #include "veins/modules/messages/DemoServiceAdvertisement_m.h"
 #include "veins/modules/messages/DemoSafetyMessage_m.h"
 #include "veins/base/connectionManager/ChannelAccess.h"
-#include "veins/modules/mac/ieee80211p/DemoBaseApplLayerToMac1609_4Interface.h"
 #include "veins/modules/mobility/traci/TraCIMobility.h"
 #include "veins/modules/mobility/traci/TraCICommandInterface.h"
 
@@ -141,7 +141,7 @@ protected:
     TraCICommandInterface::Vehicle* traciVehicle;
 
     AnnotationManager* annotations;
-    DemoBaseApplLayerToMac1609_4Interface* mac;
+    BaseApplLayerToMac1609_4Interface* mac;
 
     /* support for parking currently only works with TraCI */
     bool isParked;

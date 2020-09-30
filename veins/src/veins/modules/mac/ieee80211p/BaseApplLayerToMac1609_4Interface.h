@@ -35,7 +35,7 @@ namespace veins {
  *
  * @ingroup macLayer
  */
-class VEINS_API DemoBaseApplLayerToMac1609_4Interface {
+class VEINS_API BaseApplLayerToMac1609_4Interface {
 public:
     virtual bool isChannelSwitchingActive() = 0;
 
@@ -45,7 +45,7 @@ public:
 
     virtual void changeServiceChannel(Channel channelNumber) = 0;
 
-    virtual ~DemoBaseApplLayerToMac1609_4Interface(){};
+    virtual ~BaseApplLayerToMac1609_4Interface(){};
 
     /**
      * @brief Returns the MAC address of this MAC module.

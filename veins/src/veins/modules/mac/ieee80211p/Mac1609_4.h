@@ -25,12 +25,12 @@
 #include <queue>
 #include <memory>
 #include <stdint.h>
+#include <veins/modules/mac/ieee80211p/BaseApplLayerToMac1609_4Interface.h>
 
 #include "veins/veins.h"
 
 #include "veins/base/modules/BaseLayer.h"
 #include "veins/modules/phy/PhyLayer80211p.h"
-#include "veins/modules/mac/ieee80211p/DemoBaseApplLayerToMac1609_4Interface.h"
 #include "veins/modules/utility/Consts80211p.h"
 #include "veins/modules/utility/MacToPhyControlInfo11p.h"
 #include "veins/base/utils/FindModule.h"
@@ -65,7 +65,7 @@ namespace veins {
 
 class DeciderResult80211;
 
-class VEINS_API Mac1609_4 : public BaseMacLayer, public DemoBaseApplLayerToMac1609_4Interface {
+class VEINS_API Mac1609_4 : public BaseMacLayer, public BaseApplLayerToMac1609_4Interface {
 
 public:
     // tell to anybody which is interested when the channel turns busy or idle
