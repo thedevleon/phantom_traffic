@@ -1,30 +1,99 @@
-# Phantom Traffic #
+# NES Phantom Traffic Dissipation with V2V
 
-Phantom Traffic Dissipation using WiFip.
+Source Repository for NES Project.
 
-## Supported program versions ##
-
+## Software Stack
+- OMNet++ (latest)
+- SUMO (v1_7_0)
+- Veins (master)
 - Veins 5.0 (see <http://veins.car2x.org/>)
 - OMNeT++ 5.5.1 (see <https://omnetpp.org/>)
 
-## Running
-- Start SUMO launchd: ./veins/sumo-launchd.py -vv -c sumo-gui
-- Run Scenario: 
-    - cd simulations/phantom_traff
-    - ./run -u Qtenv -c Default
+## Resources
+### General
+- OMNet++, VEINS, SUMO Overview - https://www.youtube.com/playlist?list=PLJfaBuRXBgpd6Qg4hqS2Ul9blAYYFx5XG
 
-## License ##
+### SUMO
+- Simulates traffic, has built in algorithms for cruise control, lane switching, etc...
+- Documentation: https://sumo.dlr.de/docs/index.html 
+- Build a Highway: https://sumo.dlr.de/docs/Tutorials/Autobahn.html 
+- Import Map: https://sumo.dlr.de/docs/Tutorials/Import_from_OpenStreetMap.html#convert_the_map_in_a_sumo_network 
+- Create Map from OSM: https://sumo.dlr.de/docs/Tutorials/OSMWebWizard.html 
+- New controller could be implemented here
 
-Veins is composed of many parts. See the version control log for a full list of
-contributors and modifications. Each part is protected by its own, individual
-copyright(s), but can be redistributed and/or modified under an open source
-license. License terms are available at the top of each file. Parts that do not
-explicitly include license text shall be assumed to be governed by the "GNU
-General Public License" as published by the Free Software Foundation -- either
-version 2 of the License, or (at your option) any later version
-(SPDX-License-Identifier: GPL-2.0-or-later). Parts that are not source code and
-do not include license text shall be assumed to allow the Creative Commons
-"Attribution-ShareAlike 4.0 International License" as an additional option
-(SPDX-License-Identifier: GPL-2.0-or-later OR CC-BY-SA-4.0). Full license texts
-are available with the source distribution.
+### Veins
+- Documentation: https://veins.car2x.org/
+- Implements IEEE 801.11p for MAC and PHY
 
+## Setup
+
+### 1. Build and install OMNet++
+See Chapter 4. Linux in https://doc.omnetpp.org/omnetpp/InstallGuide.pdf.
+Make sure that `omnetpp` opens the omnet IDE.
+
+### 2. Build SUMO and add to Path
+Instructions: https://sumo.dlr.de/docs/Installing/Linux_Build.html 
+```bash
+sudo apt-get install cmake python g++ libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev ibgl2ps-dev swig
+cd sumo
+export SUMO_HOME="$PWD"
+mkdir build/cmake-build && cd build/cmake-build
+cmake ../..
+make -j$(nproc)
+```
+Then add sumo to your path. Make sure `sumo-gui` opens the SUMO GUI.
+
+### 3. Build Project
+```bash
+./configure
+make
+```
+
+### 5. Open Project in Eclipse
+You should be able to import the project into your own workspace in eclipse now.
+
+## Running Examples
+
+Make sure that the sumo-launchd is running.
+```bash
+cd veins/
+./sumo-launchd.py -vv -c sumo-gui
+```
+Then you can run the simulations.
+
+```bash
+cd phantom_traffic/simulations/ring
+
+./run -u Cmdenv -c Default
+```
+
+To see the Qtenv, run with `Qtenv` instead of `Cmdenv`.
+
+```bash
+./run -u Qtenv -c Default
+```
+
+Hit run in Qtenv and then sumo-gui should pop up, hit run there as well.
+
+Or try running it directly in OMNet++ by clicking on the omnetpp.ini and hitting run. Might work. Might not work. Not tested enough.
+
+
+# Source Study Fidings
+- Veins provides 802.11p PHY and MAC layer (src/veins/model/phy and src/veins/model/mac)
+
+- Cookiecutter template for Veins: https://github.com/veins/cookiecutter-veins-project
+
+- Example application (layer) is implemented in
+    - DemoBaseApplLayer
+    However, it seems to be already quite overloaded, lots of code. **unclear what it does.**
+
+- Another example is in ApplicationLayerTest, an extension of DemoBaseApplLayer and basis for the cookiecutter template, for whatever reason. **unclear what it does.**
+
+- TraCI allows us to get values directly from SUMO (vehicle position, roads, etc...) and allows us to perform lane changing, breaking, accelleration, etc... aka god mode
+    - for more see https://sumo.dlr.de/docs/TraCI.html
+
+- Another example with TraCI is in (src/veins/model/application/traci)
+    - TraCIDemo11p (CAR)
+    - TraCIDemoRSU11p (RSU)
+
+    It emulates multiple cars and a roadside unit. After a little while an car will stop (make an accident) and the RSU will inform other cars, which will avoid that route and try to drive around it.
