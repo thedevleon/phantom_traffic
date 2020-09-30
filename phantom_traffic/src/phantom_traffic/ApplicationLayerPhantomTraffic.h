@@ -24,7 +24,7 @@
 
 #include "phantom_traffic/phantom_traffic.h"
 
-#include "veins/modules/application/ieee80211p/DemoBaseApplLayer.h"
+#include "phantom_traffic/base/DemoBaseApplLayer.h"
 
 namespace phantom_traffic {
 

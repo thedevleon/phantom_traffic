@@ -7,6 +7,12 @@ Phantom Traffic Dissipation using WiFip.
 - Veins 5.0 (see <http://veins.car2x.org/>)
 - OMNeT++ 5.5.1 (see <https://omnetpp.org/>)
 
+## Running
+- Start SUMO launchd: ./veins/sumo-launchd.py -vv -c sumo-gui
+- Run Scenario: 
+    - cd simulations/phantom_traff
+    - ./run -u Qtenv -c Default
+
 ## License ##
 
 Veins is composed of many parts. See the version control log for a full list of
