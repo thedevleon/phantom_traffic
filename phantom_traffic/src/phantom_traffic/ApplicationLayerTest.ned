@@ -21,7 +21,7 @@
 //
 
 package org.car2x.veins.subprojects.phantom_traffic;
-import org.car2x.veins.modules.application.ieee80211p.DemoBaseApplLayer;
+import org.car2x.veins.subprojects.phantom_traffic.base.DemoBaseApplLayer;
 
 simple ApplicationLayerTest extends DemoBaseApplLayer
 {

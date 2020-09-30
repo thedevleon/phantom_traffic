@@ -83,9 +83,15 @@ Or try running it directly in OMNet++ by clicking on the omnetpp.ini and hitting
 
 - Cookiecutter template for Veins: https://github.com/veins/cookiecutter-veins-project
 
+- Base for Application layer can be found in BaseApplLayer
+
 - Example application (layer) is implemented in
     - DemoBaseApplLayer
-    However, it seems to be already quite overloaded, lots of code. **unclear what it does.**
+    - DemoBaseApplLayerToMac1609_4Interface
+    - DemoSafetyMessage
+    - DemoServiceAdvertisment
+
+    However, it seems to be already quite overloaded, lots of code.
 
 - Another example is in ApplicationLayerTest, an extension of DemoBaseApplLayer and basis for the cookiecutter template, for whatever reason. **unclear what it does.**
 

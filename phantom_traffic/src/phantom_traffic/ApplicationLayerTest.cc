@@ -20,9 +20,9 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //
 
-#include "ApplicationLayerPhantomTraffic.h"
+#include "ApplicationLayerTest.h"
 
-#include "phantom_traffic/ApplicationLayerPhantomTrafficMessage_m.h"
+#include "phantom_traffic/ApplicationLayerTestMessage_m.h"
 
 using namespace veins;
 using namespace phantom_traffic;
