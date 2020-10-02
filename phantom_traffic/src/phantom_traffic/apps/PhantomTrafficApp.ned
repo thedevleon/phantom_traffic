@@ -1,7 +1,5 @@
 //
-// Copyright (C) 2006-2011 Christoph Sommer <christoph.sommer@uibk.ac.at>
-//
-// Documentation for these modules is at http://veins.car2x.org/
+// Copyright (C) 2012-2019 Michele Segata <segata@ccs-labs.org>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 //
@@ -20,11 +18,13 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //
 
-package org.car2x.veins.subprojects.phantom_traffic;
-import org.car2x.veins.subprojects.phantom_traffic.base.DemoBaseApplLayer;
+package org.car2x.phantom_traffic.apps;
 
-simple ApplicationLayerTest extends DemoBaseApplLayer
+import org.car2x.veins.base.modules.IBaseApplLayer;
+
+moduleinterface PhantomTrafficApp extends IBaseApplLayer
 {
-    @class(phantom_traffic::ApplicationLayerTest);
-    @display("i=block/app2");
+    parameters:
+        @display("i=block/app2");
+        @class(phantom_traffic::BaseApp);
 }

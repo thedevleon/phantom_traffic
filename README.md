@@ -113,3 +113,7 @@ Or try running it directly in OMNet++ by clicking on the omnetpp.ini and hitting
 
 - ***Plexe also provides a Base Application layer that uses the Base Protocol. Could be modified and extended for our purposes.***
 
+# TODO
+- Make our own Protocol based on Plexe's BaseProtocol (at is supports unicasting)
+- Make our own Application Layer based on Plexe's BaseApp
+- Make our own Message based on the PlatooningBeacon

@@ -3,6 +3,7 @@
 	<name>phantom_traffic</name>
 	<comment></comment>
 	<projects>
+		<project>plexe-veins</project>
 		<project>veins</project>
 	</projects>
 	<buildSpec>
