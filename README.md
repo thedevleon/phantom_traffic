@@ -8,6 +8,7 @@ Source Repository for NES Project.
 - Veins (master)
 - Veins 5.0 (see <http://veins.car2x.org/>)
 - OMNeT++ 5.5.1 (see <https://omnetpp.org/>)
+- Plexe
 
 ## Resources
 ### General
@@ -24,6 +25,9 @@ Source Repository for NES Project.
 ### Veins
 - Documentation: https://veins.car2x.org/
 - Implements IEEE 801.11p for MAC and PHY
+
+### Plexe
+- TODO
 
 ## Setup
 
@@ -79,7 +83,7 @@ Or try running it directly in OMNet++ by clicking on the omnetpp.ini and hitting
 
 
 # Source Study Fidings
-- Veins provides 802.11p PHY and MAC layer (src/veins/model/phy and src/veins/model/mac)
+- Veins provides 802.11p PHY and MAC layer (src/veins/model/phy and src/veins/model/mac), however, no protocol is implemented! Basic applications doesn't even have target adresses.
 
 - Cookiecutter template for Veins: https://github.com/veins/cookiecutter-veins-project
 
@@ -103,3 +107,9 @@ Or try running it directly in OMNet++ by clicking on the omnetpp.ini and hitting
     - TraCIDemoRSU11p (RSU)
 
     It emulates multiple cars and a roadside unit. After a little while an car will stop (make an accident) and the RSU will inform other cars, which will avoid that route and try to drive around it.
+
+    
+- ***Plexe provides a simple protocol, found in BaseProtocol and is extendewd to a slotted Beaconing protocl in SlottedBeaconing. The Base Protocol has messages with vehicle information that are unicasted. Could be a good starting point.***
+
+- ***Plexe also provides a Base Application layer that uses the Base Protocol. Could be modified and extended for our purposes.***
+

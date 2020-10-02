@@ -24,7 +24,7 @@
 
 #include <map>
 
-#include "../../../../../nes/veins/src/veins/modules/mac/ieee80211p/BaseApplLayerToMac1609_4Interface.h"
+#include "veins/modules/mac/ieee80211p/BaseApplLayerToMac1609_4Interface.h"
 #include "veins/base/modules/BaseApplLayer.h"
 #include "veins/modules/utility/Consts80211p.h"
 #include "veins/modules/messages/BaseFrame1609_4_m.h"
