@@ -1,7 +1,7 @@
-#!/bin/sh
+#!/bin/bash
 
 #
-# Copyright (C) 2019 Christoph Sommer <sommer@ccs-labs.org>
+# Copyright (C) 2019 Julian Heinovski <heinovski@ccs-labs.org>
 #
 # Documentation for these modules is at http://veins.car2x.org/
 #
@@ -22,9 +22,18 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
 
-set -e
+# Generates the version number used for the doxygen documentation
+# by using git describe to analyze the current HEAD of the repository.
+#
+# Example: plexe-5a1-16-gd81b4a14a0
+# The current HEAD points at the commit d81b4a14a0, which is 16 commits
+# newer than the tag plexe-5a1 it is based on.
+#
+# In case git describe fails, the version is empty.
 
-(cd veins && ./configure "$@")
-(cd plexe && ./configure "$@" --with-veins ../veins)
-(cd phantom_traffic && ./configure "$@")
-
+TAG=$(git describe --tags --always 2> /dev/null)
+if [[ ($? -eq 0) && ($TAG =~ ^plexe-) ]]; then
+    echo $TAG | sed -n 's/^plexe-\(.*\)$/\1/p'
+else
+    echo ""
+fi

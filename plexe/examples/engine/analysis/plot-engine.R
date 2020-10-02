@@ -1,9 +1,5 @@
-#!/bin/sh
-
 #
-# Copyright (C) 2019 Christoph Sommer <sommer@ccs-labs.org>
-#
-# Documentation for these modules is at http://veins.car2x.org/
+# Copyright (C) 2016-2019 Michele Segata <segata@ccs-labs.org>
 #
 # SPDX-License-Identifier: GPL-2.0-or-later
 #
@@ -22,9 +18,25 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
 
-set -e
+#load ggplot for quick and dirty plotting
+library(ggplot2)
 
-(cd veins && ./configure "$@")
-(cd plexe && ./configure "$@" --with-veins ../veins)
-(cd phantom_traffic && ./configure "$@")
+#map controller id to name
+car <- function(id) {
+    ifelse(id == 0, "Alfa 147",
+        ifelse(id == 1, "Audi R8", "Bugatti Veyron")
+    )
+}
 
+load('../results/EngineTest.Rdata')
+allData$car <- car(allData$vehicle)
+
+p.speed <- ggplot(allData, aes(x=time, y=speed*3.6, col=factor(car))) +
+           geom_line()
+ggsave('engine-speed.pdf', p.speed, width=16, height=9)
+#print(p.speed)
+
+p.accel <- ggplot(allData, aes(x=time, y=acceleration, col=factor(car))) +
+           geom_line()
+ggsave('engine-acceleration.pdf', p.accel, width=16, height=9)
+#print(p.accel)

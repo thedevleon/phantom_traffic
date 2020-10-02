@@ -1,7 +1,6 @@
-#!/bin/sh
 
 #
-# Copyright (C) 2019 Christoph Sommer <sommer@ccs-labs.org>
+# Copyright (C) 2018 Christoph Sommer <sommer@ccs-labs.org>
 #
 # Documentation for these modules is at http://veins.car2x.org/
 #
@@ -22,9 +21,16 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
 
-set -e
+all: plexe_catch$(D)
 
-(cd veins && ./configure "$@")
-(cd plexe && ./configure "$@" --with-veins ../veins)
-(cd phantom_traffic && ./configure "$@")
+plexe_catch$(D): $(O)/plexe_catch$(D)
+	$(qecho) "Creating symlink: $@"
+	$(Q)$(LN) $(O)/plexe_catch$(D) .
 
+$(O)/plexe_catch$(D): $(OBJS) $(O)/$(TARGET)
+	$(qecho) "Creating binary: $@"
+	$(Q)$(CXX) -o $@ $(OBJS) $(LIBS) $(OMNETPP_LIBS) $(LDFLAGS) -L$(O)
+
+cleanbin:
+	$(Q)-rm -f $(O)/plexe_catch$(D)
+	$(Q)-rm -f plexe_catch$(D)

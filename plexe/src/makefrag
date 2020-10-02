@@ -1,7 +1,6 @@
-#!/bin/sh
 
 #
-# Copyright (C) 2019 Christoph Sommer <sommer@ccs-labs.org>
+# Copyright (C) 2017 Rudolf Hornig <rudi@omnetpp.org>
 #
 # Documentation for these modules is at http://veins.car2x.org/
 #
@@ -22,9 +21,13 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
 
-set -e
-
-(cd veins && ./configure "$@")
-(cd plexe && ./configure "$@" --with-veins ../veins)
-(cd phantom_traffic && ./configure "$@")
-
+#
+# on windows we have to link with the ws2_32 (winsock2) library as it is no longer added to the omnetpp system libraries by default (as of OMNeT++ 5.1)
+# copied from INET Framework (inet-3.6.0) makefrag
+#
+ifeq ($(PLATFORM),win32.x86_64)
+  LIBS += -lws2_32
+  DEFINES += -DPLEXE_EXPORT
+  ENABLE_AUTO_IMPORT=-Wl,--enable-auto-import
+  LDFLAGS := $(filter-out $(ENABLE_AUTO_IMPORT), $(LDFLAGS))
+endif
