@@ -18,4 +18,4 @@
 // along with this program; if not, see <http://www.gnu.org/licenses/>.
 //
 
-package org.car2x.phantom_traffic;
+package org.car2x.veins.subprojects.phantom_traffic;

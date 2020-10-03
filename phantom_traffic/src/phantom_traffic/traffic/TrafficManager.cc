@@ -15,7 +15,7 @@
 
 //TODO take a look at PlatoonsPlusHumanTraffic and RingTrafficManager to insert traffic into the ring
 
-#include "phantom_traffic/traffic/TrafficManager.h"
+#include "TrafficManager.h"
 
 Define_Module(TrafficManager);
 

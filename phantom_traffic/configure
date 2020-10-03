@@ -52,7 +52,6 @@ parser = OptionParser()
 parser.add_option("-v", "--verbose", dest="count_verbose", default=0, action="count", help="increase verbosity [default: don't log infos, debug]")
 parser.add_option("-q", "--quiet", dest="count_quiet", default=0, action="count", help="decrease verbosity [default: log warnings, errors]")
 parser.add_option("--with-veins", dest="veins", help="link with a version of Veins installed in PATH", metavar="PATH", default="../veins")
-parser.add_option("--with-plexe", dest="plexe", help="link with a version of Plexe installed in PATH", metavar="PATH", default="../plexe")
 (options, args) = parser.parse_args()
 
 _LOGLEVELS = (logging.ERROR, logging.WARN, logging.INFO, logging.DEBUG)
@@ -98,19 +97,6 @@ if options.veins:
     run_libs = [os.path.relpath(os.path.join(options.veins, 'src', 'veins'))] + run_libs
     run_neds = [os.path.relpath(os.path.join(options.veins, 'src', 'veins'))] + run_neds
     run_imgs = [os.path.relpath(os.path.join(options.veins, 'images'))] + run_imgs
-
-# Add flags for Plexe
-if options.plexe:
-    info('adding plexe')
-    plexe_header_dirs = [os.path.join(os.path.relpath(options.plexe, 'src'), 'src')]
-    plexe_includes = ['-I' + s for s in plexe_header_dirs]
-    plexe_link = ["-L" + os.path.join(os.path.relpath(options.plexe, 'src'), 'src'), "-lplexe$(D)"]
-    plexe_defs = []
-
-    makemake_flags += plexe_includes + plexe_link + plexe_defs
-    run_libs = [os.path.relpath(os.path.join(options.plexe, 'src', 'plexe'))] + run_libs
-    run_neds = [os.path.relpath(os.path.join(options.plexe, 'src', 'plexe'))] + run_neds
-    run_imgs = [os.path.relpath(os.path.join(options.plexe, 'images'))] + run_imgs
 
 
 # Start creating files
