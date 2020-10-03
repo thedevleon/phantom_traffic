@@ -131,6 +131,8 @@ void TraCIMobility::finish()
     isPreInitialized = false;
 }
 
+
+//IMPORTANT: This will set the speed of the car to 0 after a specific amount of time. This in turn will trigger the sensing of the WSA once the application layer realizes the car has come to a stop for more than 10 seconds.
 void TraCIMobility::handleSelfMsg(cMessage* msg)
 {
     if (msg == startAccidentMsg) {

@@ -46,7 +46,7 @@ void ApplicationLayerTest::onWSA(DemoServiceAdvertisment* wsa)
         currentSubscribedServiceId = wsa->getPsid();
         if (currentOfferedServiceId != wsa->getPsid()) {
             stopService();
-            startService(static_cast<Channel>(wsa->getTargetChannel()), wsa->getPsid(), "Mirrored Traffic Service");
+            startService(static_cast<Channel>(wsa->getTargetChannel()), wsa->getPsid(), "Mirrored Traffic Service"); //This will start a "service" that mirrors the WSA it just received and sending it into the networking, triggering the service on other cars as well, flooding the network.
         }
     }
 }
@@ -88,10 +88,14 @@ void ApplicationLayerTest::handleSelfMsg(cMessage* msg)
     }
 }
 
+
+//IMPORTANT: This method is called every step of the simulation by TraCI to inform the application layer of the vehicles position
 void ApplicationLayerTest::handlePositionUpdate(cObject* obj)
 {
     DemoBaseApplLayer::handlePositionUpdate(obj);
 
+    //IMPORTANT this is the most important step. If a car has been stopped because of a simulated accident, it will send out a WSA and start advertising, which other cars will relay, flooding the network.
+    //TODO: not sure yet WHO exactly stops the vehicle.
     // stopped for for at least 10s?
     if (mobility->getSpeed() < 1) {
         if (simTime() - lastDroveAt >= 10 && sentMessage == false) {
