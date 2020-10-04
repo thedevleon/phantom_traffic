@@ -109,6 +109,7 @@ The application layer get's a position update every step of the simulation from 
 
 - TraCI allows us to get values directly from SUMO (vehicle position, roads, etc...) and allows us to perform lane changing, breaking, accelleration, etc... aka god mode
     - for more see https://sumo.dlr.de/docs/TraCI.html
+    - VEINS built a custom module for this, see http://veins.car2x.org/documentation/modules/
 
 - Another example with TraCI is in (src/veins/model/application/traci)
     - TraCIDemo11p (CAR)

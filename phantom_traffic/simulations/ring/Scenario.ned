@@ -22,7 +22,7 @@
 
 package ring;
 
-network Scenario extends org.car2x.veins.nodes.Scenario
+network Scenario extends org.car2x.veins.subprojects.phantom_traffic.nodes.Scenario
 {
     submodules:
 }
