@@ -94,8 +94,11 @@ void ApplicationLayerTest::handlePositionUpdate(cObject* obj)
 {
     DemoBaseApplLayer::handlePositionUpdate(obj);
 
+
+    //TODO Modify this method to get vehicle properties and beacon them with a fixed interval
+    //e.g. mobility->getPositionAt(simTime()) and populateWSM, setWSM data, sendDown(wsm) (will actually send the message)
+
     //IMPORTANT this is the most important step. If a car has been stopped because of a simulated accident, it will send out a WSA and start advertising, which other cars will relay, flooding the network.
-    //TODO: not sure yet WHO exactly stops the vehicle.
     // stopped for for at least 10s?
     if (mobility->getSpeed() < 1) {
         if (simTime() - lastDroveAt >= 10 && sentMessage == false) {
