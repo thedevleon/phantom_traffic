@@ -26,7 +26,7 @@ Source Repository for NES Project.
 - Documentation: https://veins.car2x.org/
 - Implements IEEE 801.11p for MAC
 - Provides relaistic PHY simulation based on antenna modelling, obstacles, etc...
-- P
+- More info here: http://veins.car2x.org/documentation/modules/
 
 ### Plexe
 - TODO
@@ -57,6 +57,7 @@ make
 
 ### 5. Open Project in Eclipse
 You should be able to import the project into your own workspace in eclipse now.
+Simply choose this folder, and you should be able to import phantom_traffic, plexe-veins, and veins.
 
 ## Running Examples
 
@@ -73,7 +74,7 @@ cd phantom_traffic/simulations/ring
 ./run -u Cmdenv -c Default
 ```
 
-To see the Qtenv, run with `Qtenv` instead of `Cmdenv`.
+To see the Qtenv (which shows communications and events), run with `Qtenv` instead of `Cmdenv`.
 
 ```bash
 ./run -u Qtenv -c Default
