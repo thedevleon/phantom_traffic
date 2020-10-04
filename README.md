@@ -3,11 +3,9 @@
 Source Repository for NES Project.
 
 ## Software Stack
-- OMNet++ (latest)
-- SUMO (v1_7_0)
-- Veins (master)
-- Veins 5.0 (see <http://veins.car2x.org/>)
 - OMNeT++ 5.5.1 (see <https://omnetpp.org/>)
+- SUMO (v1_7_0)
+- Veins 5.0 (see <http://veins.car2x.org/>)
 - Plexe
 
 ## Resources
@@ -24,12 +22,15 @@ Source Repository for NES Project.
 
 ### Veins
 - Documentation: https://veins.car2x.org/
-- Implements IEEE 801.11p for MAC
+- Implements IEEE 802.11p and IEEE 1609.4 DSRC/WAVE for MAC
+- Implements IEEE 802.11p for PHY and a realistic wireless propagation modeling
 - Provides relaistic PHY simulation based on antenna modelling, obstacles, etc...
 - More info here: http://veins.car2x.org/documentation/modules/
+- "Tutorial" here: https://veins.car2x.org/tutorial/ 
 
 ### Plexe
-- TODO
+- Implemented custom cruise controllers for SUMO, but has been merged into SUMO already.
+- Also has custom protocols setup untop of veins, could be an inspiration, but probably overkill.
 
 ## Setup
 
@@ -39,9 +40,10 @@ Make sure that `omnetpp` opens the omnet IDE.
 
 ### 2. Build SUMO and add to Path
 Instructions: https://sumo.dlr.de/docs/Installing/Linux_Build.html 
+
+Clone sumo to your preferred path, e.g. then run these commands to build it:
 ```bash
 sudo apt-get install cmake python g++ libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev ibgl2ps-dev swig
-cd sumo
 export SUMO_HOME="$PWD"
 mkdir build/cmake-build && cd build/cmake-build
 cmake ../..
@@ -107,6 +109,7 @@ The application layer get's a position update every step of the simulation from 
 
 - All other cars will continue to relay the WSA sent from the car with the accident.
 
+- The veins demo base application layer allows to switch channels, e.g. sending on service channels instead of just on the control channel. (dataOnSch for application layer, useServiceChannel for mac layer)
 
 - TraCI allows us to get values directly from SUMO (vehicle position, roads, etc...) and allows us to perform lane changing, breaking, accelleration, etc... aka god mode
     - for more see https://sumo.dlr.de/docs/TraCI.html
