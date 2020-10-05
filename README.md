@@ -129,3 +129,4 @@ The application layer get's a position update every step of the simulation from 
 # TODO
 - Make our own Application Layer based on the provided application layer and by by combining TraCIDemo11p and TraCIDemoRSU11p for accessing vehicle data
 - Make our own Message based on the PlatooningBeacon
+- Add random seeds
