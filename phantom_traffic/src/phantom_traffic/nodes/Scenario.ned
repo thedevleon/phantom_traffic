@@ -54,7 +54,6 @@ network Scenario
         }
         traciScenarioManager: TraCIScenarioManagerLaunchd {
             parameters:
-                moduleType = "org.car2x.veins.subprojects.phantom_traffic.nodes.Car";  // module type to be used in the simulation for each managed vehicle
                 @display("p=340,50");
         }
 

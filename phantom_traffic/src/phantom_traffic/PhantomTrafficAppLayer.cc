@@ -1,4 +1,4 @@
-#include "ApplicationLayerTest.h"
+#include "PhantomTrafficAppLayer.h"
 
 #include "phantom_traffic/ApplicationLayerTestMessage_m.h"
 #include "phantom_traffic/PhantomTrafficMessage_m.h"
@@ -7,11 +7,11 @@ using namespace veins;
 
 namespace phantom_traffic {
 
-Define_Module(ApplicationLayerTest);
+Define_Module(PhantomTrafficAppLayer);
 
-void ApplicationLayerTest::initialize(int stage)
+void PhantomTrafficAppLayer::initialize(int stage)
 {
-    DemoBaseApplLayer::initialize(stage);
+    PhantomTrafficBaseAppLayer::initialize(stage);
     if (stage == 0) {
         sentMessage = false;
         lastDroveAt = simTime();
@@ -19,12 +19,12 @@ void ApplicationLayerTest::initialize(int stage)
     }
 }
 
-void ApplicationLayerTest::onPTM(PhantomTrafficMessage* ptm)
+void PhantomTrafficAppLayer::onPTM(PhantomTrafficMessage* ptm)
 {
     //TODO add algorithm
 }
 
-void ApplicationLayerTest::onWSA(DemoServiceAdvertisment* wsa)
+void PhantomTrafficAppLayer::onWSA(DemoServiceAdvertisment* wsa)
 {
     if (currentSubscribedServiceId == -1) {
         mac->changeServiceChannel(static_cast<Channel>(wsa->getTargetChannel()));
@@ -36,7 +36,7 @@ void ApplicationLayerTest::onWSA(DemoServiceAdvertisment* wsa)
     }
 }
 
-void ApplicationLayerTest::onWSM(BaseFrame1609_4* frame)
+void PhantomTrafficAppLayer::onWSM(BaseFrame1609_4* frame)
 {
     /*
     ApplicationLayerTestMessage* wsm = check_and_cast<ApplicationLayerTestMessage*>(frame);
@@ -54,8 +54,9 @@ void ApplicationLayerTest::onWSM(BaseFrame1609_4* frame)
     */
 }
 
-void ApplicationLayerTest::handleSelfMsg(cMessage* msg)
+void PhantomTrafficAppLayer::handleSelfMsg(cMessage* msg)
 {
+
     if (ApplicationLayerTestMessage* wsm = dynamic_cast<ApplicationLayerTestMessage*>(msg)) {
         // send this message on the service channel until the counter is 3 or higher.
         // this code only runs when channel switching is enabled
@@ -71,15 +72,15 @@ void ApplicationLayerTest::handleSelfMsg(cMessage* msg)
         }
     }
     else {
-        DemoBaseApplLayer::handleSelfMsg(msg);
+        PhantomTrafficBaseAppLayer::handleSelfMsg(msg);
     }
 }
 
 
 //IMPORTANT: This method is called every step of the simulation by TraCI to inform the application layer of the vehicles position
-void ApplicationLayerTest::handlePositionUpdate(cObject* obj)
+void PhantomTrafficAppLayer::handlePositionUpdate(cObject* obj)
 {
-    DemoBaseApplLayer::handlePositionUpdate(obj);
+    PhantomTrafficBaseAppLayer::handlePositionUpdate(obj);
 
 
     //TODO Modify this method to get vehicle properties and beacon them with a fixed interval

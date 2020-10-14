@@ -39,10 +39,10 @@ using veins::TraCIMobilityAccess;
  * @see PhyLayer80211p
  * @see Decider80211p
  */
-class PHANTOM_TRAFFIC_API DemoBaseApplLayer : public veins::BaseApplLayer {
+class PHANTOM_TRAFFIC_API PhantomTrafficBaseAppLayer : public veins::BaseApplLayer {
 
 public:
-    ~DemoBaseApplLayer() override;
+    ~PhantomTrafficBaseAppLayer() override;
     void initialize(int stage) override;
     void finish() override;
 

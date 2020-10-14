@@ -220,7 +220,8 @@ void TraCIScenarioManager::parseModuleTypes()
 
     // perform set intersection
     std::set_intersection(typeKeys.begin(), typeKeys.end(), nameKeys.begin(), nameKeys.end(), std::back_inserter(intersection));
-    if (intersection.size() != typeKeys.size() || intersection.size() != nameKeys.size()) throw cRuntimeError("keys of mappings of moduleType and moduleName are not the same");
+    std::string errorMsg = "keys of mappings of moduleType and moduleName are not the same: " + moduleTypes+ " vs " + moduleNames;
+    if (intersection.size() != typeKeys.size() || intersection.size() != nameKeys.size()) throw cRuntimeError(errorMsg.c_str());
 
     if (displayStringKeys.size() == 0) return;
 

@@ -33,10 +33,10 @@ import org.car2x.veins.base.modules.IBaseApplLayer;
 // @see Mac1609_4
 // @see PhyLayer80211p
 //
-simple DemoBaseApplLayer like IBaseApplLayer
+simple PhantomTrafficBaseAppLayer like IBaseApplLayer
 {
     parameters:
-        @class(veins::DemoBaseApplLayer);
+        @class(veins::PhantomTrafficBaseAppLayer);
         int headerLength = default(88bit) @unit(bit); //header length of the application
 
         bool sendBeacons = default(true); //tell the applayer to periodically send beacons

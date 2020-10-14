@@ -1,8 +1,8 @@
 #pragma once
 
+#include "base/PhantomTrafficBaseAppLayer.h"
 #include "phantom_traffic/phantom_traffic.h"
 
-#include "phantom_traffic/base/DemoBaseApplLayer.h"
 
 namespace phantom_traffic {
 
@@ -20,7 +20,7 @@ namespace phantom_traffic {
  *
  */
 
-class PHANTOM_TRAFFIC_API ApplicationLayerTest : public DemoBaseApplLayer {
+class PHANTOM_TRAFFIC_API PhantomTrafficAppLayer : public PhantomTrafficBaseAppLayer {
 public:
     void initialize(int stage) override;
 

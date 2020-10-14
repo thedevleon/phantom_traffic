@@ -21,10 +21,10 @@
 //
 
 package org.car2x.veins.subprojects.phantom_traffic;
-import org.car2x.veins.subprojects.phantom_traffic.base.DemoBaseApplLayer;
+import org.car2x.veins.subprojects.phantom_traffic.base.PhantomTrafficBaseAppLayer;
 
-simple ApplicationLayerTest extends DemoBaseApplLayer
+simple PhantomTrafficAppLayer extends PhantomTrafficBaseAppLayer
 {
-    @class(phantom_traffic::ApplicationLayerTest);
+    @class(phantom_traffic::PhantomTrafficAppLayer);
     @display("i=block/app2");
 }
