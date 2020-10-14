@@ -1,28 +1,8 @@
-//
-// Copyright (C) 2016 David Eckhoff <eckhoff@cs.fau.de>
-//
-// Documentation for these modules is at http://veins.car2x.org/
-//
-// SPDX-License-Identifier: GPL-2.0-or-later
-//
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or
-// (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-//
-
 #pragma once
 
 #include <map>
+
+#include "phantom_traffic/phantom_traffic.h"
 
 #include "veins/modules/mac/ieee80211p/BaseApplLayerToMac1609_4Interface.h"
 #include "veins/base/modules/BaseApplLayer.h"
@@ -34,7 +14,11 @@
 #include "veins/modules/mobility/traci/TraCIMobility.h"
 #include "veins/modules/mobility/traci/TraCICommandInterface.h"
 
-namespace veins {
+#include "phantom_traffic/PhantomTrafficMessage_m.h"
+
+using namespace veins;
+
+namespace phantom_traffic {
 
 using veins::AnnotationManager;
 using veins::AnnotationManagerAccess;
@@ -55,7 +39,7 @@ using veins::TraCIMobilityAccess;
  * @see PhyLayer80211p
  * @see Decider80211p
  */
-class VEINS_API DemoBaseApplLayer : public BaseApplLayer {
+class PHANTOM_TRAFFIC_API DemoBaseApplLayer : public veins::BaseApplLayer {
 
 public:
     ~DemoBaseApplLayer() override;
@@ -87,6 +71,9 @@ protected:
 
     /** @brief this function is called upon receiving a DemoServiceAdvertisement */
     virtual void onWSA(DemoServiceAdvertisment* wsa){};
+
+    /** @brief this function is called upon receiving a PhantomTrafficMessage  */
+    virtual void onPTM(PhantomTrafficMessage* ptm){};
 
     /** @brief this function is called every time the vehicle receives a position update signal */
     virtual void handlePositionUpdate(cObject* obj);
@@ -165,7 +152,13 @@ protected:
 
     /* state of the vehicle */
     Coord curPosition;
-    Coord curSpeed;
+    double prevSpeed;
+    double curSpeed;
+    double curAccel;
+    double prevTime;
+    double curTime;
+    double cs;
+    double ct;
     LAddress::L2Type myId = 0;
     int mySCH;
 
@@ -173,13 +166,15 @@ protected:
     uint32_t generatedWSMs;
     uint32_t generatedWSAs;
     uint32_t generatedBSMs;
+    uint32_t generatedPTMs;
     uint32_t receivedWSMs;
     uint32_t receivedWSAs;
     uint32_t receivedBSMs;
+    uint32_t receivedPTMs;
 
     /* messages for periodic events such as beacon and WSA transmissions */
     cMessage* sendBeaconEvt;
     cMessage* sendWSAEvt;
 };
 
-} // namespace veins
+} // namespace phantom_traffic

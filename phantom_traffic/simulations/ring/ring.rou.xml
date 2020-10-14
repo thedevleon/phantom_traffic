@@ -1,17 +1,37 @@
 <?xml version="1.0"?>
 <routes>          
-    <vType id="normal_car" accel="2.5" decel="9.0" sigma="0.5" length="4" minGap="1.5" maxSpeed="42" color="1,0,0" probability="1" tau="2.0"
-        carFollowModel="CC" tauEngine="0.5" omegaN="0.2" xi="1" c1="0.5" lanesCount="4" ccAccel="1.5" ploegKp="0.2" ploegKd="0.7" ploegH="0.5" />
-    <vType id="vtypehuman" accel="5" decel="9.0" sigma="0.5" length="4" minGap="1.5" maxSpeed="40" color="0.16,0.33,0.42" vClass="passenger" guiShape="passenger" speedFactor="1" departSpeed="40" carFollowModel="IDM" />
+    <vType id="normal_car" accel="5" decel="9.0" sigma="0.5" length="4" minGap="1.5" maxSpeed="42" color="1,0,0" probability="1" tau="2.0"
+        carFollowModel="IDM" tauEngine="0.5" omegaN="0.2" xi="1" c1="0.5" lanesCount="4" ccAccel="1.5" ploegKp="0.2" ploegKd="0.7" ploegH="0.5" />
+    <vType id="human_car" accel="5" decel="9.0" sigma="0.5" length="4" minGap="1.5" maxSpeed="40" color="0.16,0.33,0.42" vClass="passenger" guiShape="passenger" speedFactor="1" departSpeed="40" carFollowModel="IDM" />
     <!--
     <vType id="sporty_car" vClass="passenger" maxSpeed="60" speedFactor="1.3" speedDev="0.1" sigma="0.1" />
     <vType id="trailer" vClass="trailer"  maxSpeed="30" speedFactor="1.1" speedDev="0.1" />
     <vType id="coach" vClass="coach"  maxSpeed="30" speedFactor="1." speedDev="0.1" />
     -->
+    <vehicle id="0" type="normal_car" depart="0" departPos="free" color="1,0,0" route="r1" departSpeed="30" accel="2.5" decel="4.5" minGap="1.5"/>
+    <vehicle id="1" type="normal_car" depart="0" departPos="free" color="1,0,0" route="r1" departSpeed="30" accel="2.5" decel="4.5" minGap="1.5"/>
+    <vehicle id="2" type="normal_car" depart="0" departPos="free" color="1,0,0" route="r1" departSpeed="30" accel="2.5" decel="4.5" minGap="1.5"/>
+    <vehicle id="3" type="normal_car" depart="0" departPos="free" color="1,0,0" route="r1" departSpeed="30" accel="2.5" decel="4.5" minGap="1.5"/>
+    <vehicle id="4" type="normal_car" depart="0" departPos="free" color="1,0,0" route="r1" departSpeed="30" accel="2.5" decel="4.5" minGap="1.5"/>
+    <vehicle id="5" type="normal_car" depart="0" departPos="free" color="1,0,0" route="r1" departSpeed="30" accel="2.5" decel="4.5" minGap="1.5"/>
+    <vehicle id="6" type="normal_car" depart="0" departPos="free" color="1,0,0" route="r2" departSpeed="30" accel="2.5" decel="4.5" minGap="1.5"/>
+    <vehicle id="7" type="normal_car" depart="0" departPos="free" color="1,0,0" route="r2" departSpeed="30" accel="2.5" decel="4.5" minGap="1.5"/>
+    <vehicle id="8" type="normal_car" depart="0" departPos="free" color="1,0,0" route="r2" departSpeed="30" accel="2.5" decel="4.5" minGap="1.5"/>
+    <vehicle id="9" type="normal_car" depart="0" departPos="free" color="1,0,0" route="r2" departSpeed="30" accel="2.5" decel="4.5" minGap="1.5"/>
+    <vehicle id="10" type="normal_car" depart="0" departPos="free" color="1,0,0" route="r2" departSpeed="30" accel="2.5" decel="4.5" minGap="1.5"/>
+    <vehicle id="11" type="normal_car" depart="0" departPos="free" color="1,0,0" route="r1" departSpeed="30" accel="2.5" decel="4.5" minGap="1.5"/>
+    <vehicle id="12" type="normal_car" depart="0" departPos="free" color="1,0,0" route="r1" departSpeed="30" accel="2.5" decel="4.5" minGap="1.5"/>
+    <vehicle id="13" type="normal_car" depart="0" departPos="free" color="1,0,0" route="r1" departSpeed="30" accel="2.5" decel="4.5" minGap="1.5"/>
+    <vehicle id="14" type="normal_car" depart="0" departPos="free" color="1,0,0" route="r1" departSpeed="30" accel="2.5" decel="4.5" minGap="1.5"/>
+    <vehicle id="15" type="normal_car" depart="0" departPos="free" color="1,0,0" route="r1" departSpeed="30" accel="2.5" decel="4.5" minGap="1.5"/>
+    <vehicle id="16" type="normal_car" depart="0" departPos="free" color="1,0,0" route="r2" departSpeed="30" accel="2.5" decel="4.5" minGap="1.5"/>
+    <vehicle id="17" type="normal_car" depart="0" departPos="free" color="1,0,0" route="r2" departSpeed="30" accel="2.5" decel="4.5" minGap="1.5"/>
+    <vehicle id="18" type="normal_car" depart="0" departPos="free" color="1,0,0" route="r2" departSpeed="30" accel="2.5" decel="4.5" minGap="1.5"/>
+    <vehicle id="19" type="normal_car" depart="0" departPos="free" color="1,0,0" route="r2" departSpeed="30" accel="2.5" decel="4.5" minGap="1.5"/>
+    <vehicle id="20" type="normal_car" depart="0" departPos="free" color="1,0,0" route="r2" departSpeed="30" accel="2.5" decel="4.5" minGap="1.5"/>
     
-    
-    <flow id="normal" type="vtypehuman" begin="0" period="0.5" departLane="0" number="20" departSpeed="30" route="r1"/>
-    <!--
+    <!--flow id="normal" type="human_car" begin="0" period="0.5" departLane="0" number="20" departSpeed="30" route="r1"/>
+    <
     <flow id="sporty" type="sporty_car" begin="0" period="0.1" departLane="0" number="50" departSpeed="27.77" route="r2"/>
     <flow id="trailer" type="trailer" begin="0" period="0.1" departLane="0" number="200" departSpeed="27.77" route="r1"/>
     <flow id="coach" type="coach" begin="0" period="0.1" departLane="0" number="100" departSpeed="27.77" route="r2"/>    

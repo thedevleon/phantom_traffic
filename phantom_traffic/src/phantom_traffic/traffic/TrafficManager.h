@@ -18,6 +18,11 @@
 
 #include <omnetpp.h>
 
+#include "veins/veins.h"
+
+#include "veins/modules/mobility/traci/TraCIScenarioManager.h"
+#include "veins/modules/mobility/traci/TraCICommandInterface.h"
+
 using namespace omnetpp;
 
 /**
@@ -25,9 +30,30 @@ using namespace omnetpp;
  */
 class TrafficManager : public cSimpleModule
 {
+
   protected:
     virtual void initialize();
     virtual void handleMessage(cMessage *msg);
+
+    /** reference to the simulations ScenarioManager */
+    mutable veins::TraCIScenarioManager* manager;
+    /** reference to the simulations traffic light-specific TraCI command interface */
+    mutable veins::TraCICommandInterface* commandInterface;
+
+    virtual veins::TraCIScenarioManager* getManager() const
+    {
+        if (!manager) {
+            manager = veins::TraCIScenarioManagerAccess().get();
+        }
+        return manager;
+    }
+    virtual veins::TraCICommandInterface* getCommandInterface() const
+    {
+        if (!commandInterface) {
+            commandInterface = getManager()->getCommandInterface();
+        }
+        return commandInterface;
+    }
 };
 
 #endif

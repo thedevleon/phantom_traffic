@@ -1,33 +1,13 @@
-//
-// Copyright (C) 2006-2011 Christoph Sommer <christoph.sommer@uibk.ac.at>
-//
-// Documentation for these modules is at http://veins.car2x.org/
-//
-// SPDX-License-Identifier: GPL-2.0-or-later
-//
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or
-// (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-//
-
 #include "ApplicationLayerTest.h"
 
 #include "phantom_traffic/ApplicationLayerTestMessage_m.h"
+#include "phantom_traffic/PhantomTrafficMessage_m.h"
 
 using namespace veins;
-using namespace phantom_traffic;
 
-Define_Module(phantom_traffic::ApplicationLayerTest);
+namespace phantom_traffic {
+
+Define_Module(ApplicationLayerTest);
 
 void ApplicationLayerTest::initialize(int stage)
 {
@@ -37,6 +17,11 @@ void ApplicationLayerTest::initialize(int stage)
         lastDroveAt = simTime();
         currentSubscribedServiceId = -1;
     }
+}
+
+void ApplicationLayerTest::onPTM(PhantomTrafficMessage* ptm)
+{
+    //TODO add algorithm
 }
 
 void ApplicationLayerTest::onWSA(DemoServiceAdvertisment* wsa)
@@ -53,6 +38,7 @@ void ApplicationLayerTest::onWSA(DemoServiceAdvertisment* wsa)
 
 void ApplicationLayerTest::onWSM(BaseFrame1609_4* frame)
 {
+    /*
     ApplicationLayerTestMessage* wsm = check_and_cast<ApplicationLayerTestMessage*>(frame);
 
     findHost()->getDisplayString().setTagArg("i", 1, "green");
@@ -65,6 +51,7 @@ void ApplicationLayerTest::onWSM(BaseFrame1609_4* frame)
         wsm->setSerial(3);
         scheduleAt(simTime() + 2 + uniform(0.01, 0.2), wsm->dup());
     }
+    */
 }
 
 void ApplicationLayerTest::handleSelfMsg(cMessage* msg)
@@ -100,6 +87,7 @@ void ApplicationLayerTest::handlePositionUpdate(cObject* obj)
 
     //IMPORTANT this is the most important step. If a car has been stopped because of a simulated accident, it will send out a WSA and start advertising, which other cars will relay, flooding the network.
     // stopped for for at least 10s?
+    /*
     if (mobility->getSpeed() < 1) {
         if (simTime() - lastDroveAt >= 10 && sentMessage == false) {
             findHost()->getDisplayString().setTagArg("i", 1, "red");
@@ -124,4 +112,7 @@ void ApplicationLayerTest::handlePositionUpdate(cObject* obj)
     else {
         lastDroveAt = simTime();
     }
+    */
+}
+
 }

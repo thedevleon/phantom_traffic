@@ -1,28 +1,8 @@
-//
-// Copyright (C) 2011 David Eckhoff <eckhoff@cs.fau.de>
-//
-// Documentation for these modules is at http://veins.car2x.org/
-//
-// SPDX-License-Identifier: GPL-2.0-or-later
-//
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or
-// (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-//
-
 #include "phantom_traffic/base/DemoBaseApplLayer.h"
 
 using namespace veins;
+
+namespace phantom_traffic {
 
 void DemoBaseApplLayer::initialize(int stage)
 {
@@ -73,9 +53,11 @@ void DemoBaseApplLayer::initialize(int stage)
         generatedBSMs = 0;
         generatedWSAs = 0;
         generatedWSMs = 0;
+        generatedPTMs = 0;
         receivedBSMs = 0;
         receivedWSAs = 0;
         receivedWSMs = 0;
+        receivedPTMs = 0;
     }
     else if (stage == 1) {
 
@@ -92,7 +74,7 @@ void DemoBaseApplLayer::initialize(int stage)
 
         if (par("avoidBeaconSynchronization").boolValue() == true) {
 
-            simtime_t randomOffset = dblrand() * beaconInterval;
+            simtime_t randomOffset = dblrand() *  beaconInterval;
             firstBeacon = simTime() + randomOffset;
 
             if (mac->isChannelSwitchingActive() == true) {
@@ -158,7 +140,22 @@ void DemoBaseApplLayer::populateWSM(BaseFrame1609_4* wsm, LAddress::L2Type rcvId
     wsm->setRecipientAddress(rcvId);
     wsm->setBitLength(headerLength);
 
-    if (DemoSafetyMessage* bsm = dynamic_cast<DemoSafetyMessage*>(wsm)) {
+    //TODO phantom trafffic beacon
+    if (PhantomTrafficMessage* ptm = dynamic_cast<PhantomTrafficMessage*>(wsm)) {
+        ptm->setSenderPos(curPosition);
+        ptm->setSenderSpeed(curSpeed);
+        ptm->setSenderAccel(curAccel);
+        ptm->setSenderTime(curTime);
+        ptm->setSender_cs(cs);
+        ptm->setSender_ct(ct);
+
+        ptm->setPsid(-1);
+        ptm->setChannelNumber(static_cast<int>(Channel::cch));
+        ptm->addBitLength(beaconLengthBits);
+        wsm->setUserPriority(beaconUserPriority);
+    }
+    /*
+    else if (DemoSafetyMessage* bsm = dynamic_cast<DemoSafetyMessage*>(wsm)) {
         bsm->setSenderPos(curPosition);
         bsm->setSenderSpeed(curSpeed);
         bsm->setPsid(-1);
@@ -166,6 +163,7 @@ void DemoBaseApplLayer::populateWSM(BaseFrame1609_4* wsm, LAddress::L2Type rcvId
         bsm->addBitLength(beaconLengthBits);
         wsm->setUserPriority(beaconUserPriority);
     }
+    */
     else if (DemoServiceAdvertisment* wsa = dynamic_cast<DemoServiceAdvertisment*>(wsm)) {
         wsa->setChannelNumber(static_cast<int>(Channel::cch));
         wsa->setTargetChannel(static_cast<int>(currentServiceChannel));
@@ -195,9 +193,16 @@ void DemoBaseApplLayer::receiveSignal(cComponent* source, simsignal_t signalID, 
 
 void DemoBaseApplLayer::handlePositionUpdate(cObject* obj)
 {
-    ChannelMobilityPtrType const mobility = check_and_cast<ChannelMobilityPtrType>(obj);
+    //ChannelMobilityPtrType const mobility = check_and_cast<ChannelMobilityPtrType>(obj);
     curPosition = mobility->getPositionAt(simTime());
-    curSpeed = mobility->getCurrentSpeed();
+    
+    curTime = simTime().dbl();
+    curSpeed = mobility->getSpeed();
+    
+    curAccel = (curSpeed - prevSpeed) / (curTime - prevTime);
+
+    prevSpeed = curSpeed;
+    prevTime = curTime;
 }
 
 void DemoBaseApplLayer::handleParkingUpdate(cObject* obj)
@@ -211,6 +216,10 @@ void DemoBaseApplLayer::handleLowerMsg(cMessage* msg)
     BaseFrame1609_4* wsm = dynamic_cast<BaseFrame1609_4*>(msg);
     ASSERT(wsm);
 
+    if (PhantomTrafficMessage* ptm = dynamic_cast<PhantomTrafficMessage*>(wsm)) {
+        receivedPTMs++;
+        onPTM(ptm);
+    }
     if (DemoSafetyMessage* bsm = dynamic_cast<DemoSafetyMessage*>(wsm)) {
         receivedBSMs++;
         onBSM(bsm);
@@ -234,12 +243,21 @@ void DemoBaseApplLayer::handleSelfMsg(cMessage* msg)
 {
     switch (msg->getKind()) {
     case SEND_BEACON_EVT: {
+        PhantomTrafficMessage* ptm = new PhantomTrafficMessage();
+        populateWSM(ptm);
+        sendDown(ptm);
+        scheduleAt(simTime() + beaconInterval, sendBeaconEvt);
+        break;
+    }
+    /*
+    case SEND_BEACON_EVT: {
         DemoSafetyMessage* bsm = new DemoSafetyMessage();
         populateWSM(bsm);
         sendDown(bsm);
         scheduleAt(simTime() + beaconInterval, sendBeaconEvt);
         break;
     }
+    */
     case SEND_WSA_EVT: {
         DemoServiceAdvertisment* wsa = new DemoServiceAdvertisment();
         populateWSM(wsa);
@@ -320,4 +338,6 @@ void DemoBaseApplLayer::checkAndTrackPacket(cMessage* msg)
         EV_TRACE << "sending down a wsm" << std::endl;
         generatedWSMs++;
     }
+}
+
 }

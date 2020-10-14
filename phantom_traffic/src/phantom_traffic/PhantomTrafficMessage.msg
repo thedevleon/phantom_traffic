@@ -11,29 +11,25 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
-// 
+//
 
-//TODO take a look at PlatoonsPlusHumanTraffic and RingTrafficManager to insert traffic into the ring
+cplusplus {{
+#include "veins/base/utils/Coord.h"
+#include "veins/modules/messages/BaseFrame1609_4_m.h"
+#include "veins/base/utils/SimpleAddress.h"
+}}
 
-#include "TrafficManager.h"
+namespace phantom_traffic;
 
-Define_Module(TrafficManager);
+class veins::BaseFrame1609_4;
+class noncobject veins::Coord;
+class veins::LAddress::L2Type extends void;
 
-void TrafficManager::initialize()
-{
-    const auto scenarioManager = veins::TraCIScenarioManagerAccess().get();
-    ASSERT(scenarioManager);
-
-    const auto commandInterface = scenarioManager->getCommandInterface();
-
-    //for(int i = 0; i < 50; i++)
-    //{
-    //    commandInterface->addVehicle("addedCar"+i, "human_car", "r1", simTime(), i, 27.77f, 0);
-    //}
-}
-
-
-void TrafficManager::handleMessage(cMessage *msg)
-{
-    // TODO - Generated method body
+packet PhantomTrafficMessage extends BaseFrame1609_4 {
+    veins::Coord senderPos;
+    double senderSpeed;
+    double senderAccel;
+    double senderTime;
+    double sender_cs;
+    double sender_ct; 
 }
