@@ -32,7 +32,8 @@ public:
     int stopVehiclesAt = 50;
     int stopVehiclesDuration = 5;
     int numberOfVehicles = 100;
-    double percentageOfSmartCars = 0.03;
+    double percentageOfSmartCars = 0.05;
+    double percentageOfBrakingCars = 0.10;
 
   protected:
     virtual void initialize(int stage);

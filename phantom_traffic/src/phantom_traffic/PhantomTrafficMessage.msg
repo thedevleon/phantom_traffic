@@ -32,6 +32,7 @@ packet PhantomTrafficMessage extends BaseFrame1609_4 {
     double senderAccel;
     double senderTime;
     int senderLane;
+    veins::LAddress::L2Type sender_addr[20];
     veins::Coord sender_cs[20];
     double sender_ct[20];
     int sender_cl[20];

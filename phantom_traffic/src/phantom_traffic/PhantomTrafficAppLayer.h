@@ -33,7 +33,7 @@ protected:
     
     //Research parameters
     double seconds_gap = 2;             //keep a 2/3s gap with predecesor
-    double v_a_threshold = 81 / 3.6;    //average speed the cars need to drop below for the system to activate
+    double v_a_threshold = 81 / 3.6;    //average speed the cars need to drop below for the system to activate (22.5 m/s)
     double beacon_time = 1;             //time interval used to calculate v_a (also duration beacons get stored)
     double c_time = 30;                 //time interval in which c-values are considered relevant (also duration c-values get stored)
 

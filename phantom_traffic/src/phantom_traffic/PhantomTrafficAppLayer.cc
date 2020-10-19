@@ -29,9 +29,25 @@ void PhantomTrafficAppLayer::onPTM(PhantomTrafficMessage* ptm)
                             ptm->getSenderLane()
     );
 
-    for(int i = 0; i < cs.size(); i++){
-        for(int j = 0; j < cxsize; j++){
-            if(ptm->getSender_ct(j) != -1 && !(ct[i] == ptm->getSender_ct(j) && cs[i] == ptm->getSender_cs(j) && cl[i] == ptm->getSender_cl(j))){
+
+    for(int j = 0; j < cxsize; j++){
+        if(ptm->getSender_ct(j) != -1){
+            bool update = false;
+
+            for(int i = 0; i < cs.size(); i++){
+                if(ptm->getSender_addr(j) == sender_addr[j])
+                {
+                    update = true;
+                    cs[i] = ptm->getSender_cs(j);
+                    ct[i] = ptm->getSender_ct(j);
+                    cl[i] = ptm->getSender_cl(j);
+                    break;
+                }
+            }
+
+            if(!update)
+            {
+                sender_addr.push_back(ptm->getSender_addr(j));
                 cs.push_back(ptm->getSender_cs(j));
                 ct.push_back(ptm->getSender_ct(j));
                 cl.push_back(ptm->getSender_cl(j));
@@ -81,43 +97,46 @@ void PhantomTrafficAppLayer::onPTM(PhantomTrafficMessage* ptm)
         //To make sure we dont store the same congestion to many many times we first
         //check each current c-vector - if cs is within 5m of the potentially new cs and it's 
         //in the same lane, just update the ct (the congestion is still present)
+
         bool update = false;
         for(int i = 0; i < cs.size(); i++) {
-            double distanceMin = traci->getDistance(mobility->getPositionAt(simTime()), cs[i], true);
-            distanceMin = distanceMin - 5;
-            double distanceMax = traci->getDistance(mobility->getPositionAt(simTime()), cs[i], true);
-            distanceMin = distanceMin + 5;
-
-            if(distanceMin < 0 && distanceMax > 0 && cl[i] == traciVehicle->getLaneIndex())
+            double distance = traci->getDistance(mobility->getPositionAt(simTime()), cs[i], true);
+            if(distance < 5 && cl[i] == traciVehicle->getLaneIndex())
             {
                 cs[i] = mobility->getPositionAt(simTime());
                 ct[i] = simTime().dbl();
                 update = true;
+                updateCsCt.record(true);
             }
         }
+
         if(!update) {
             //create new ct and cs
+            sender_addr.push_back(myId);
             cs.push_back(mobility->getPositionAt(simTime()));
             ct.push_back(simTime().dbl());
             cl.push_back(traciVehicle->getLaneIndex());
+            updateCsCt.record(false);
+            newCsCt.record(true);
         }
+
     }
     else
     {
         aboveThreshold.record(0);
     }
     
+    drivingChange = false;
 
     //if 0 < c_s - currentPos < 3km set B (change driving behaviour) to true, only for cars in the same lane
     for(int i = 0; i < cs.size(); i++) {
         if(cl[i] == traciVehicle->getLaneIndex()) {
             if(0 < traci->getDistance(mobility->getPositionAt(simTime()), cs[i], true) && traci->getDistance(mobility->getPositionAt(simTime()), cs[i], true) < 3000) {
                 drivingChange = true;
-                return;
+               break;
             }
         }
     }
-    drivingChange = false;
 
     bdSize.record(beaconData.size());
     csSize.record(cs.size());

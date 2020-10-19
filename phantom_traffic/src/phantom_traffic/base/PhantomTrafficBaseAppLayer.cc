@@ -163,12 +163,14 @@ void PhantomTrafficBaseAppLayer::populateWSM(BaseFrame1609_4* wsm, LAddress::L2T
         {
             if(i< cs.size())
             {
+                ptm->setSender_addr(i, sender_addr[i]);
                 ptm->setSender_cs(i, cs[i]);
                 ptm->setSender_ct(i, ct[i]);
                 ptm->setSender_cl(i, cl[i]);
             }
             else
             {
+                ptm->setSender_addr(i, LAddress::L2BROADCAST());
                 ptm->setSender_cs(i, Coord(0,0,0));
                 ptm->setSender_ct(i, -1);
                 ptm->setSender_cl(i, -1);

@@ -165,6 +165,7 @@ protected:
 
     #define cxsize 20
 
+    std::vector<veins::LAddress::L2Type>sender_addr;
     std::vector<Coord>cs;
     std::vector<double>ct;
     std::vector<int>cl;
@@ -187,7 +188,7 @@ protected:
     cMessage* sendWSAEvt;
 
     //Vectors for recording
-    cOutVector stopAcc, drvChange, bdSize, csSize, clSize, ctSize, aboveThreshold, vCount, avgSpeed;
+    cOutVector stopAcc, drvChange, bdSize, csSize, clSize, ctSize, aboveThreshold, vCount, avgSpeed, updateCsCt, newCsCt;
 };
 
 } // namespace phantom_traffic
