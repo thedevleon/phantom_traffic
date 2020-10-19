@@ -63,7 +63,7 @@ void TrafficManager::timestep()
 
         for(int i = 0; i < numberOfVehicles; i++)
         {
-            bool shouldStop = (i % (int) ((numberOfVehicles/(percentageOfSmartCars*numberOfVehicles)) + 1) == 0);
+            bool shouldStop = (i % (int) ((numberOfVehicles/(percentageOfBrakingCars*numberOfVehicles)) + 1) == 0);
 
             if(shouldStop)
             {
@@ -80,7 +80,7 @@ void TrafficManager::timestep()
 
         for(int i = 0; i < numberOfVehicles; i++)
         {
-            bool shouldStop = (i % (int) ((numberOfVehicles/(percentageOfSmartCars*numberOfVehicles)) + 1) == 0);
+            bool shouldStop = (i % (int) ((numberOfVehicles/(percentageOfBrakingCars*numberOfVehicles)) + 1) == 0);
 
             if(shouldStop)
             {

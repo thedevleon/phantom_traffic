@@ -35,12 +35,12 @@ void PhantomTrafficAppLayer::onPTM(PhantomTrafficMessage* ptm)
             bool update = false;
 
             for(int i = 0; i < cs.size(); i++){
-                if(ptm->getSender_addr(j) == sender_addr[j])
+                if(ptm->getSender_addr(j) == sender_addr[i] && ptm->getSender_cl(j) == cl[i])
                 {
                     update = true;
                     cs[i] = ptm->getSender_cs(j);
                     ct[i] = ptm->getSender_ct(j);
-                    cl[i] = ptm->getSender_cl(j);
+                    //cl[i] = ptm->getSender_cl(j);
                     break;
                 }
             }
