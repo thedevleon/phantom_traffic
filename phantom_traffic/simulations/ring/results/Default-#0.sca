@@ -1,0 +1,167 @@
+version 2
+run Default-0-20201019-18:54:05-28890
+attr configname Default
+attr datetime 20201019-18:54:05
+attr experiment Default
+attr inifile omnetpp.ini
+attr iterationvars ""
+attr iterationvarsf ""
+attr measurement ""
+attr network Scenario
+attr processid 28890
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+param *.playgroundSizeX 2500m
+param *.playgroundSizeY 2500m
+param *.playgroundSizeZ 50m
+param *.annotations.draw true
+param *.obstacles.debug false
+param *.world.useTorus false
+param *.world.use2D false
+param *.traciScenarioManager.updateInterval 0.01s
+param *.traciScenarioManager.host "\"localhost\""
+param *.traciScenarioManager.port 9999
+param *.traciScenarioManager.autoShutdown true
+param *.traciScenarioManager.launchConfig "xmldoc(\"ring.launchd.xml\")"
+param *.traciScenarioManager.configFile "\"ring.sumo.cfg\""
+param *.traciScenarioManager.moduleType "\"smart_car=org.car2x.veins.nodes.Car normal_car=0 human_car=0\""
+param *.traciScenarioManager.moduleName "\"smart_car=node normal_car=0 human_car=0\""
+param *.traciScenarioManager.moduleDisplayString "\"\""
+param *.connectionManager.sendDirect true
+param *.connectionManager.maxInterfDist 2600m
+param *.connectionManager.drawMaxIntfDist false
+param *.**.nic.mac1609_4.useServiceChannel false
+param *.**.nic.mac1609_4.txPower 20mW
+param *.**.nic.mac1609_4.bitrate 6Mbps
+param *.**.nic.phy80211p.minPowerLevel -110dBm
+param *.**.nic.phy80211p.useNoiseFloor true
+param *.**.nic.phy80211p.noiseFloor -98dBm
+param *.**.nic.phy80211p.decider "xmldoc(\"config.xml\")"
+param *.**.nic.phy80211p.analogueModels "xmldoc(\"config.xml\")"
+param *.**.nic.phy80211p.usePropagationDelay true
+param *.**.nic.phy80211p.antenna "xmldoc(\"antenna.xml\", \"/root/Antenna[@id='monopole']\")"
+param *.node[*].nic.phy80211p.antennaOffsetY "0 m"
+param *.node[*].nic.phy80211p.antennaOffsetZ "1.895 m"
+param *.node[*].applType "\"PhantomTrafficAppLayer\""
+param *.node[*].appl.headerLength "80 bit"
+param *.node[*].appl.sendBeacons true
+param *.node[*].appl.dataOnSch false
+param *.node[*].appl.beaconInterval 1s
+param *.node[*].veinsmobility.x 0
+param *.node[*].veinsmobility.y 0
+param *.node[*].veinsmobility.z 0
+param *.node[*].veinsmobility.setHostSpeed false
+
+scalar Scenario.node[0].appl generatedWSMs 0
+scalar Scenario.node[0].appl receivedWSMs 180
+scalar Scenario.node[0].appl generatedBSMs 0
+scalar Scenario.node[0].appl receivedBSMs 0
+scalar Scenario.node[0].appl generatedWSAs 0
+scalar Scenario.node[0].appl receivedWSAs 0
+scalar Scenario.node[0].nic.phy80211p busyTime 0.00031205200866811
+scalar Scenario.node[0].nic.mac1609_4 ReceivedUnicastPackets 0
+scalar Scenario.node[0].nic.mac1609_4 ReceivedBroadcasts 180
+scalar Scenario.node[0].nic.mac1609_4 SentPackets 60
+scalar Scenario.node[0].nic.mac1609_4 SentAcknowledgements 0
+scalar Scenario.node[0].nic.mac1609_4 SNIRLostPackets 0
+scalar Scenario.node[0].nic.mac1609_4 RXTXLostPackets 0
+scalar Scenario.node[0].nic.mac1609_4 TotalLostPackets 0
+scalar Scenario.node[0].nic.mac1609_4 DroppedPacketsInMac 0
+scalar Scenario.node[0].nic.mac1609_4 TooLittleTime 0
+scalar Scenario.node[0].nic.mac1609_4 TimesIntoBackoff 60
+scalar Scenario.node[0].nic.mac1609_4 SlotsBackoff 83
+scalar Scenario.node[0].nic.mac1609_4 NumInternalContention 0
+scalar Scenario.node[0].nic.mac1609_4 totalBusyTime 0.02502
+scalar Scenario.node[0].veinsmobility startTime 0.01
+scalar Scenario.node[0].veinsmobility totalTime 59.99
+scalar Scenario.node[0].veinsmobility stopTime 60
+scalar Scenario.node[0].veinsmobility minSpeed 25.999198144418
+scalar Scenario.node[0].veinsmobility maxSpeed 39.079852277768
+scalar Scenario.node[0].veinsmobility totalDistance 1780.7376184819
+scalar Scenario.node[0].veinsmobility totalCO2Emission 329.50313895868
+scalar Scenario.node[1].appl generatedWSMs 0
+scalar Scenario.node[1].appl receivedWSMs 180
+scalar Scenario.node[1].appl generatedBSMs 0
+scalar Scenario.node[1].appl receivedBSMs 0
+scalar Scenario.node[1].appl generatedWSAs 0
+scalar Scenario.node[1].appl receivedWSAs 0
+scalar Scenario.node[1].nic.phy80211p busyTime 0.00031205200866811
+scalar Scenario.node[1].nic.mac1609_4 ReceivedUnicastPackets 0
+scalar Scenario.node[1].nic.mac1609_4 ReceivedBroadcasts 180
+scalar Scenario.node[1].nic.mac1609_4 SentPackets 60
+scalar Scenario.node[1].nic.mac1609_4 SentAcknowledgements 0
+scalar Scenario.node[1].nic.mac1609_4 SNIRLostPackets 0
+scalar Scenario.node[1].nic.mac1609_4 RXTXLostPackets 0
+scalar Scenario.node[1].nic.mac1609_4 TotalLostPackets 0
+scalar Scenario.node[1].nic.mac1609_4 DroppedPacketsInMac 0
+scalar Scenario.node[1].nic.mac1609_4 TooLittleTime 0
+scalar Scenario.node[1].nic.mac1609_4 TimesIntoBackoff 60
+scalar Scenario.node[1].nic.mac1609_4 SlotsBackoff 90
+scalar Scenario.node[1].nic.mac1609_4 NumInternalContention 0
+scalar Scenario.node[1].nic.mac1609_4 totalBusyTime 0.02502
+scalar Scenario.node[1].veinsmobility startTime 0.01
+scalar Scenario.node[1].veinsmobility totalTime 59.99
+scalar Scenario.node[1].veinsmobility stopTime 60
+scalar Scenario.node[1].veinsmobility minSpeed 26.504774167749
+scalar Scenario.node[1].veinsmobility maxSpeed 37.082224090524
+scalar Scenario.node[1].veinsmobility totalDistance 1779.5712270777
+scalar Scenario.node[1].veinsmobility totalCO2Emission 328.75374150329
+scalar Scenario.node[2].appl generatedWSMs 0
+scalar Scenario.node[2].appl receivedWSMs 180
+scalar Scenario.node[2].appl generatedBSMs 0
+scalar Scenario.node[2].appl receivedBSMs 0
+scalar Scenario.node[2].appl generatedWSAs 0
+scalar Scenario.node[2].appl receivedWSAs 0
+scalar Scenario.node[2].nic.phy80211p busyTime 0.00031210403467823
+scalar Scenario.node[2].nic.mac1609_4 ReceivedUnicastPackets 0
+scalar Scenario.node[2].nic.mac1609_4 ReceivedBroadcasts 180
+scalar Scenario.node[2].nic.mac1609_4 SentPackets 60
+scalar Scenario.node[2].nic.mac1609_4 SentAcknowledgements 0
+scalar Scenario.node[2].nic.mac1609_4 SNIRLostPackets 0
+scalar Scenario.node[2].nic.mac1609_4 RXTXLostPackets 0
+scalar Scenario.node[2].nic.mac1609_4 TotalLostPackets 0
+scalar Scenario.node[2].nic.mac1609_4 DroppedPacketsInMac 0
+scalar Scenario.node[2].nic.mac1609_4 TooLittleTime 0
+scalar Scenario.node[2].nic.mac1609_4 TimesIntoBackoff 60
+scalar Scenario.node[2].nic.mac1609_4 SlotsBackoff 93
+scalar Scenario.node[2].nic.mac1609_4 NumInternalContention 0
+scalar Scenario.node[2].nic.mac1609_4 totalBusyTime 0.02502
+scalar Scenario.node[2].veinsmobility startTime 0.02
+scalar Scenario.node[2].veinsmobility totalTime 59.98
+scalar Scenario.node[2].veinsmobility stopTime 60
+scalar Scenario.node[2].veinsmobility minSpeed 25.285177498622
+scalar Scenario.node[2].veinsmobility maxSpeed 36.288449250117
+scalar Scenario.node[2].veinsmobility totalDistance 1721.0815149659
+scalar Scenario.node[2].veinsmobility totalCO2Emission 324.65770586727
+scalar Scenario.node[3].appl generatedWSMs 0
+scalar Scenario.node[3].appl receivedWSMs 180
+scalar Scenario.node[3].appl generatedBSMs 0
+scalar Scenario.node[3].appl receivedBSMs 0
+scalar Scenario.node[3].appl generatedWSAs 0
+scalar Scenario.node[3].appl receivedWSAs 0
+scalar Scenario.node[3].nic.phy80211p busyTime 0.00031215607803902
+scalar Scenario.node[3].nic.mac1609_4 ReceivedUnicastPackets 0
+scalar Scenario.node[3].nic.mac1609_4 ReceivedBroadcasts 180
+scalar Scenario.node[3].nic.mac1609_4 SentPackets 60
+scalar Scenario.node[3].nic.mac1609_4 SentAcknowledgements 0
+scalar Scenario.node[3].nic.mac1609_4 SNIRLostPackets 0
+scalar Scenario.node[3].nic.mac1609_4 RXTXLostPackets 0
+scalar Scenario.node[3].nic.mac1609_4 TotalLostPackets 0
+scalar Scenario.node[3].nic.mac1609_4 DroppedPacketsInMac 0
+scalar Scenario.node[3].nic.mac1609_4 TooLittleTime 0
+scalar Scenario.node[3].nic.mac1609_4 TimesIntoBackoff 60
+scalar Scenario.node[3].nic.mac1609_4 SlotsBackoff 93
+scalar Scenario.node[3].nic.mac1609_4 NumInternalContention 0
+scalar Scenario.node[3].nic.mac1609_4 totalBusyTime 0.02502
+scalar Scenario.node[3].veinsmobility startTime 0.03
+scalar Scenario.node[3].veinsmobility totalTime 59.97
+scalar Scenario.node[3].veinsmobility stopTime 60
+scalar Scenario.node[3].veinsmobility minSpeed 20.510609476204
+scalar Scenario.node[3].veinsmobility maxSpeed 35.831292364673
+scalar Scenario.node[3].veinsmobility totalDistance 1696.7607942982
+scalar Scenario.node[3].veinsmobility totalCO2Emission 356.91092315583
+scalar Scenario.traciScenarioManager roiArea 0
+

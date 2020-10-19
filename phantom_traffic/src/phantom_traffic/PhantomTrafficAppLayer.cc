@@ -69,11 +69,15 @@ void PhantomTrafficAppLayer::onPTM(PhantomTrafficMessage* ptm)
             }
         }
     }
-    v_a = v_a / count; //now we have average speed of predecessor cars
+    if(count > 0) v_a = v_a / count; //now we have average speed of predecessor cars
+
+    vCount.record(count);
+    avgSpeed.record(v_a);
 
     //if v_a(t) < 81 km/h -> store c_t <- time and c_s <- currentPosition (+ communication range (150m))
     //start adding these to the beacon
     if(v_a < v_a_threshold && count > 0) {
+        aboveThreshold.record(1);
         //To make sure we dont store the same congestion to many many times we first
         //check each current c-vector - if cs is within 5m of the potentially new cs and it's 
         //in the same lane, just update the ct (the congestion is still present)
@@ -98,6 +102,11 @@ void PhantomTrafficAppLayer::onPTM(PhantomTrafficMessage* ptm)
             cl.push_back(traciVehicle->getLaneIndex());
         }
     }
+    else
+    {
+        aboveThreshold.record(0);
+    }
+    
 
     //if 0 < c_s - currentPos < 3km set B (change driving behaviour) to true, only for cars in the same lane
     for(int i = 0; i < cs.size(); i++) {

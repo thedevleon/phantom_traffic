@@ -66,6 +66,9 @@ void PhantomTrafficBaseAppLayer::initialize(int stage)
         csSize.setName("csSize");
         clSize.setName("clSize");
         ctSize.setName("ctSize");
+        aboveThreshold.setName("aboveThreshold");
+        vCount.setName("vehicleCount");
+        avgSpeed.setName("averageSpeed");
     }
     else if (stage == 1) {
 
