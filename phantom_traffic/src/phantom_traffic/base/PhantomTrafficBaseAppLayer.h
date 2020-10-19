@@ -157,8 +157,18 @@ protected:
     double curAccel;
     double prevTime;
     double curTime;
-    double cs;
-    double ct;
+    int curLane;
+
+    //std::vector<Coord>cs_beacon;
+    //std::vector<double>ct_beacon;   //???
+    //std::vector<int>cl_beacon;
+
+    #define cxsize 20
+
+    std::vector<Coord>cs;
+    std::vector<double>ct;
+    std::vector<int>cl;
+    
     LAddress::L2Type myId = 0;
     int mySCH;
 
@@ -175,6 +185,9 @@ protected:
     /* messages for periodic events such as beacon and WSA transmissions */
     cMessage* sendBeaconEvt;
     cMessage* sendWSAEvt;
+
+    //Vectors for recording
+    cOutVector stopAcc, drvChange, bdSize, csSize, clSize, ctSize;
 };
 
 } // namespace phantom_traffic

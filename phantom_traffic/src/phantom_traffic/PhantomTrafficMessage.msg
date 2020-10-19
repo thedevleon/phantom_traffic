@@ -25,11 +25,14 @@ class veins::BaseFrame1609_4;
 class noncobject veins::Coord;
 class veins::LAddress::L2Type extends void;
 
+
 packet PhantomTrafficMessage extends BaseFrame1609_4 {
     veins::Coord senderPos;
     double senderSpeed;
     double senderAccel;
     double senderTime;
-    double sender_cs;
-    double sender_ct; 
+    int senderLane;
+    veins::Coord sender_cs[20];
+    double sender_ct[20];
+    int sender_cl[20];
 }

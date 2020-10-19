@@ -19,21 +19,70 @@
 
 Define_Module(TrafficManager);
 
-void TrafficManager::initialize()
+void TrafficManager::initialize(int stage)
 {
-    const auto scenarioManager = veins::TraCIScenarioManagerAccess().get();
-    ASSERT(scenarioManager);
+    cSimpleModule::initialize(stage);
 
-    const auto commandInterface = scenarioManager->getCommandInterface();
+    if(stage == 0)
+    {
+        manager = veins::TraCIScenarioManagerAccess().get();
+        ASSERT(manager);
 
-    //for(int i = 0; i < 50; i++)
-    //{
-    //    commandInterface->addVehicle("addedCar"+i, "human_car", "r1", simTime(), i, 27.77f, 0);
-    //}
+        // subscribe to signals
+        auto init = [this](veins::SignalPayload<bool>) { traciLoaded(); };
+        signalManager.subscribeCallback(manager, veins::TraCIScenarioManager::traciInitializedSignal, init);
+
+        auto timestep_traci = [this](veins::SignalPayload<simtime_t const&>) { timestep(); };
+        signalManager.subscribeCallback(manager, veins::TraCIScenarioManager::traciTimestepEndSignal, timestep_traci);
+    }
+}
+
+void TrafficManager::traciLoaded()
+{
+    commandInterface = manager->getCommandInterface();
+
+    for(int i = 0; i < numberOfVehicles; i++)
+    {
+        auto type = (i <= percentageOfSmartCars*numberOfVehicles) ? "smart_car" : "human_car";
+
+        if(i % 2 == 0){
+            commandInterface->addVehicle(std::to_string(i), type, "r1", 0, i/100, 27.77f, 0);
+        }
+        else
+        {
+            commandInterface->addVehicle(std::to_string(i), type, "r2", 0, i/100, 27.77f, 0);
+        }
+    }
+}
+
+void TrafficManager::timestep()
+{
+    if(simTime() > stopVehiclesAt && !vehiclesStopped)
+    {
+        vehiclesStopped = true;
+
+        for(int i = 0; i < 10; i++)
+        {
+            auto vehicleCommandInterface = new veins::TraCICommandInterface::Vehicle(commandInterface->vehicle(std::to_string(numberOfVehicles-1-i)));
+            vehicleCommandInterface->setSpeed(0);
+            vehicleCommandInterface->setColor(stoppedColor);
+        }
+    }
+
+    if(simTime() > stopVehiclesAt + stopVehiclesDuration && !vehiclesResumed)
+    {
+        vehiclesResumed = true;
+
+        for(int i = 0; i < 10; i++)
+        {
+            auto vehicleCommandInterface = new veins::TraCICommandInterface::Vehicle(commandInterface->vehicle(std::to_string(numberOfVehicles-1-i)));
+            vehicleCommandInterface->setSpeed(27.77f);
+            vehicleCommandInterface->setColor(normalColor);
+        }
+    }
 }
 
 
 void TrafficManager::handleMessage(cMessage *msg)
 {
-    // TODO - Generated method body
 }

@@ -1,0 +1,17 @@
+{
+    "configurations": [
+        {
+            "name": "Omnetpp",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/home/leon/Desktop/nes/omnetpp-5.6.2/include"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "gnu18",
+            "cppStandard": "gnu++14",
+            "intelliSenseMode": "gcc-x64"
+        }
+    ],
+    "version": 4
+}

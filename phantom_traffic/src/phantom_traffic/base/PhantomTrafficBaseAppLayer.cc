@@ -58,6 +58,14 @@ void PhantomTrafficBaseAppLayer::initialize(int stage)
         receivedWSAs = 0;
         receivedWSMs = 0;
         receivedPTMs = 0;
+
+        //    cOutVector stopAcc, drvChange, bdSize, csSize, clSize, ctSize;
+        stopAcc.setName("stopAcceleration");
+        drvChange.setName("driveChange");
+        bdSize.setName("beaconSize");
+        csSize.setName("csSize");
+        clSize.setName("clSize");
+        ctSize.setName("ctSize");
     }
     else if (stage == 1) {
 
@@ -146,14 +154,29 @@ void PhantomTrafficBaseAppLayer::populateWSM(BaseFrame1609_4* wsm, LAddress::L2T
         ptm->setSenderSpeed(curSpeed);
         ptm->setSenderAccel(curAccel);
         ptm->setSenderTime(curTime);
-        //TODO how to deal with multiple CS/TS values?
-        ptm->setSender_cs(cs);
-        ptm->setSender_ct(ct);
+        ptm->setSenderLane(curLane);
+
+        for(int i = 0; i < cxsize; i++)
+        {
+            if(i< cs.size())
+            {
+                ptm->setSender_cs(i, cs[i]);
+                ptm->setSender_ct(i, ct[i]);
+                ptm->setSender_cl(i, cl[i]);
+            }
+            else
+            {
+                ptm->setSender_cs(i, Coord(0,0,0));
+                ptm->setSender_ct(i, -1);
+                ptm->setSender_cl(i, -1);
+            }           
+        }
 
         ptm->setPsid(-1);
         ptm->setChannelNumber(static_cast<int>(Channel::cch));
         ptm->addBitLength(beaconLengthBits);
         wsm->setUserPriority(beaconUserPriority);
+        wsm->setBitLength(ptm->getBitLength());
     }
     /*
     else if (DemoSafetyMessage* bsm = dynamic_cast<DemoSafetyMessage*>(wsm)) {
@@ -205,6 +228,8 @@ void PhantomTrafficBaseAppLayer::handlePositionUpdate(cObject* obj)
 
     prevSpeed = curSpeed;
     prevTime = curTime;
+
+    curLane =  traciVehicle->getLaneIndex();
 }
 
 void PhantomTrafficBaseAppLayer::handleParkingUpdate(cObject* obj)

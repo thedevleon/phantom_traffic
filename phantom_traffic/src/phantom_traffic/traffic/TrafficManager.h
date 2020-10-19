@@ -22,38 +22,34 @@
 
 #include "veins/modules/mobility/traci/TraCIScenarioManager.h"
 #include "veins/modules/mobility/traci/TraCICommandInterface.h"
+#include "veins/modules/utility/SignalManager.h"
 
 using namespace omnetpp;
 
-/**
- * TODO - Generated class
- */
 class TrafficManager : public cSimpleModule
 {
+public:
+    int stopVehiclesAt = 50;
+    int stopVehiclesDuration = 5;
+    int numberOfVehicles = 100;
+    double percentageOfSmartCars = 0.03;
 
   protected:
-    virtual void initialize();
+    virtual void initialize(int stage);
     virtual void handleMessage(cMessage *msg);
+    virtual void traciLoaded();
+    virtual void timestep();
 
     /** reference to the simulations ScenarioManager */
     mutable veins::TraCIScenarioManager* manager;
     /** reference to the simulations traffic light-specific TraCI command interface */
     mutable veins::TraCICommandInterface* commandInterface;
-
-    virtual veins::TraCIScenarioManager* getManager() const
-    {
-        if (!manager) {
-            manager = veins::TraCIScenarioManagerAccess().get();
-        }
-        return manager;
-    }
-    virtual veins::TraCICommandInterface* getCommandInterface() const
-    {
-        if (!commandInterface) {
-            commandInterface = getManager()->getCommandInterface();
-        }
-        return commandInterface;
-    }
+    //Signal Manager
+    veins::SignalManager signalManager;
+    bool vehiclesStopped;
+    bool vehiclesResumed;
+    const veins::TraCIColor stoppedColor = veins::TraCIColor(255,0,0,255);
+    const veins::TraCIColor normalColor = veins::TraCIColor(0,255,0,255);
 };
 
 #endif
