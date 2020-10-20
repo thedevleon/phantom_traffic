@@ -20,4 +20,11 @@ package org.car2x.veins.subprojects.phantom_traffic.traffic;
 //
 simple TrafficManager
 {
+    parameters:
+        @class(TrafficManager);
+        int stopVehiclesAt = default(50);
+        int stopVehiclesDuration = default(5);
+        int numberOfVehicles = default(100);
+        double percentageOfSmartCars = default(0.05);
+        double percentageOfBrakingCars = default(0.1);
 }

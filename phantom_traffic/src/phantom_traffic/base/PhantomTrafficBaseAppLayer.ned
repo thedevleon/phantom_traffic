@@ -53,6 +53,8 @@ simple PhantomTrafficBaseAppLayer like IBaseApplLayer
         bool sendWSA = default(false);
         int wsaLengthBits = default(250bit) @unit(bit);
         double wsaInterval =  default(1s) @unit(s);
+        
+        bool runAlgorithm = default(true); //Run algorithm?
 
     gates:
         input lowerLayerIn; // from mac layer

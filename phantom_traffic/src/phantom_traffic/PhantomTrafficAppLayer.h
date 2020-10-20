@@ -62,7 +62,7 @@ protected:
     
     std::vector<struct SBeaconData>beaconData;
 
-    const veins::TraCIColor driveChangedColor = veins::TraCIColor(255,0,100,255);
+    const veins::TraCIColor driveChangedColor = veins::TraCIColor(182,44,217,255);
     const veins::TraCIColor normalColor = veins::TraCIColor(255,140,0,255);
 
 protected:

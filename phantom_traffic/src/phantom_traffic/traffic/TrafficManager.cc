@@ -26,13 +26,12 @@ void TrafficManager::initialize(int stage)
     if(stage == 0)
     {
         //Read Parameters
-        /*
         stopVehiclesAt = par("stopVehiclesAt");
         stopVehiclesDuration = par("stopVehiclesDuration");
         numberOfVehicles = par("numberOfVehicles");
         percentageOfSmartCars = par("percentageOfSmartCars");
         percentageOfBrakingCars = par("percentageOfBrakingCars");
-        */
+
 
         manager = veins::TraCIScenarioManagerAccess().get();
         ASSERT(manager);

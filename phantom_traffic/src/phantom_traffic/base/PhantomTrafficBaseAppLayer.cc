@@ -42,6 +42,8 @@ void PhantomTrafficBaseAppLayer::initialize(int stage)
         wsaInterval = par("wsaInterval").doubleValue();
         currentOfferedServiceId = -1;
 
+        runAlgorithm = par("runAlgorithm").boolValue();
+
         isParked = false;
 
         findHost()->subscribe(BaseMobility::mobilityStateChangedSignal, this);

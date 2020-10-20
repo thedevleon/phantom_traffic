@@ -151,6 +151,8 @@ protected:
     Channel currentServiceChannel;
     simtime_t wsaInterval;
 
+    bool runAlgorithm;
+
     /* state of the vehicle */
     Coord curPosition;
     double prevSpeed;
