@@ -17,6 +17,7 @@ cplusplus {{
 #include "veins/base/utils/Coord.h"
 #include "veins/modules/messages/BaseFrame1609_4_m.h"
 #include "veins/base/utils/SimpleAddress.h"
+#include "phantom_traffic/PhantomTrafficItem.h"
 }}
 
 namespace phantom_traffic;
@@ -24,6 +25,7 @@ namespace phantom_traffic;
 class veins::BaseFrame1609_4;
 class noncobject veins::Coord;
 class veins::LAddress::L2Type extends void;
+struct PhantomTrafficItem;
 
 
 packet PhantomTrafficMessage extends BaseFrame1609_4 {
@@ -32,8 +34,5 @@ packet PhantomTrafficMessage extends BaseFrame1609_4 {
     double senderAccel;
     double senderTime;
     int senderLane;
-    veins::LAddress::L2Type sender_addr[20];
-    veins::Coord sender_cs[20];
-    double sender_ct[20];
-    int sender_cl[20];
+    PhantomTrafficItem ptmItems[20];
 }

@@ -15,6 +15,7 @@
 #include "veins/modules/mobility/traci/TraCICommandInterface.h"
 
 #include "phantom_traffic/PhantomTrafficMessage_m.h"
+#include "phantom_traffic/PhantomTrafficItem.h"
 
 using namespace veins;
 
@@ -159,16 +160,8 @@ protected:
     double curTime;
     int curLane;
 
-    //std::vector<Coord>cs_beacon;
-    //std::vector<double>ct_beacon;   //???
-    //std::vector<int>cl_beacon;
-
     #define cxsize 20
-
-    std::vector<veins::LAddress::L2Type>sender_addr;
-    std::vector<Coord>cs;
-    std::vector<double>ct;
-    std::vector<int>cl;
+    std::vector<struct PhantomTrafficItem> ptmItems;
     
     LAddress::L2Type myId = 0;
     int mySCH;
@@ -188,7 +181,7 @@ protected:
     cMessage* sendWSAEvt;
 
     //Vectors for recording
-    cOutVector stopAcc, drvChange, bdSize, csSize, clSize, ctSize, aboveThreshold, vCount, avgSpeed, updateCsCt, newCsCt;
+    cOutVector stopAcc, drvChange, bdSize, ptmItemsSize, aboveThreshold, vCount, avgSpeed, updateCsCt, newCsCt;
 };
 
 } // namespace phantom_traffic

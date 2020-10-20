@@ -36,6 +36,7 @@ protected:
     double v_a_threshold = 81 / 3.6;    //average speed the cars need to drop below for the system to activate (22.5 m/s)
     double beacon_time = 1;             //time interval used to calculate v_a (also duration beacons get stored)
     double c_time = 30;                 //time interval in which c-values are considered relevant (also duration c-values get stored)
+    double update_range = 50;           //Range in which a new cs/ct should be considered the same
 
     struct SBeaconData{
         double time;
