@@ -219,21 +219,24 @@ void PhantomTrafficAppLayer::handlePositionUpdate(cObject* obj)
         //curPositionPred - curPosition (cur_gap) > gap_n
         //While cur_gap < gap_n (<= 3km) change the car's "decel" value from 4.5 to something higher (to simulate unnecessairily strong breaks)
         //While gap_n < cur_gap (<= 3km) change the car's "decel" value back to 4.5
-        if(!stopAccel) {
+        if(stopAccel) {
             stopAcc.record(0);
             traciVehicle->setParameter("accel", "0");
             traciVehicle->setParameter("decel", "9");
+            traciVehicle->setColor(driveChangedColor);
         }
         else {
             stopAcc.record(1);
             traciVehicle->setParameter("accel", "2.5");
             traciVehicle->setParameter("decel", "4.5");
+            traciVehicle->setColor(normalColor);
         }
     }
     else {
         drvChange.record(0);
         traciVehicle->setParameter("accel", "2.5");
         traciVehicle->setParameter("decel", "4.5");
+        traciVehicle->setColor(normalColor);
     }
 }
 

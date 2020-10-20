@@ -62,6 +62,9 @@ protected:
     
     std::vector<struct SBeaconData>beaconData;
 
+    const veins::TraCIColor driveChangedColor = veins::TraCIColor(255,0,100,255);
+    const veins::TraCIColor normalColor = veins::TraCIColor(255,140,0,255);
+
 protected:
     void onPTM(PhantomTrafficMessage* ptm) override;
     void onWSM(veins::BaseFrame1609_4* wsm) override;
