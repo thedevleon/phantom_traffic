@@ -30,26 +30,20 @@ void PhantomTrafficAppLayer::onPTM(PhantomTrafficMessage* ptm)
     );
 
 
-    for(int j = 0; j < cxsize; j++){
-        auto item = ptm->getPtmItems(j);
+    for(int i = 0; i < cxsize; i++){
+        auto item = ptm->getPtmItems(i);
 
         if(item.id != -1){
-            bool update = false;
-
-            for(int i = 0; i < ptmItems.size(); i++){
-                if(item.id == ptmItems[i].id)
-                {
-                    update = true;
-                    ptmItems[i].cs = item.cs;
-                    ptmItems[i].ct = item.ct;
-                    ptmItems[i].cl = item.cl;
-                    break;
-                }
-            }
-
-            if(!update)
+            if(ptmItems.count(item.id) != 0)
             {
-                ptmItems.emplace_back(item.id, item.cs, item.ct, item.cl);
+                ptmItems[item.id].cs = item.cs;
+                ptmItems[item.id].ct = item.ct;
+                ptmItems[item.id].cl = item.cl;
+                break;
+            }
+            else
+            {
+                ptmItems[item.id] = PhantomTrafficItem(item.id, item.cs, item.ct, item.cl);
             }
         }
     }
@@ -63,10 +57,16 @@ void PhantomTrafficAppLayer::onPTM(PhantomTrafficMessage* ptm)
     }
 
     //Discard old ptmItems
-    for(int i = 0; i < ptmItems.size(); i++) {
-        if(simTime().dbl() - ptmItems[i].ct > c_time) {
-            ptmItems.erase(ptmItems.begin() + i--);
-        }
+    for (auto it = ptmItems.cbegin(); it != ptmItems.cend() /* not hoisted */; /* no increment */)
+    {
+      if (simTime().dbl() - it->second.ct > c_time)
+      {
+          ptmItems.erase(it++);    // or "it = m.erase(it)" since C++11
+      }
+      else
+      {
+        ++it;
+      }
     }
     
     //After each beacon received:
@@ -96,12 +96,14 @@ void PhantomTrafficAppLayer::onPTM(PhantomTrafficMessage* ptm)
         //in the same lane, just update the ct (the congestion is still present)
 
         bool update = false;
-        for(int i = 0; i < ptmItems.size(); i++) {
-            double distance = traci->getDistance(mobility->getPositionAt(simTime()), ptmItems[i].cs, true);
-            if(distance < update_range && ptmItems[i].cl == traciVehicle->getLaneIndex())
+
+        for (auto const& item : ptmItems)
+        {
+            double distance = traci->getDistance(mobility->getPositionAt(simTime()), item.second.cs, true);
+            if(distance < update_range && item.second.cl == traciVehicle->getLaneIndex())
             {
-                ptmItems[i].cs = mobility->getPositionAt(simTime());
-                ptmItems[i].ct = simTime().dbl();
+                ptmItems[item.first].cs = mobility->getPositionAt(simTime());
+                ptmItems[item.first].ct = simTime().dbl();
                 update = true;
                 updateCsCt.record(true);
             }
@@ -109,8 +111,8 @@ void PhantomTrafficAppLayer::onPTM(PhantomTrafficMessage* ptm)
 
         if(!update) {
             //create new ptmItem
-            auto randId = intrand(1000);
-            ptmItems.emplace_back(randId, mobility->getPositionAt(simTime()), simTime().dbl(), traciVehicle->getLaneIndex());
+            auto randId = intrand(100000);
+            ptmItems[randId] =  PhantomTrafficItem(randId, mobility->getPositionAt(simTime()), simTime().dbl(), traciVehicle->getLaneIndex());
             updateCsCt.record(false);
             newCsCt.record(true);
         }
@@ -124,9 +126,13 @@ void PhantomTrafficAppLayer::onPTM(PhantomTrafficMessage* ptm)
     drivingChange = false;
 
     //if 0 < c_s - currentPos < 3km set B (change driving behaviour) to true, only for cars in the same lane
-    for(int i = 0; i < ptmItems.size(); i++) {
-        if(ptmItems[i].cl == traciVehicle->getLaneIndex()) {
-            if(0 < traci->getDistance(mobility->getPositionAt(simTime()), ptmItems[i].cs, true) && traci->getDistance(mobility->getPositionAt(simTime()), ptmItems[i].cs, true) < 3000) {
+
+    for (auto const& item : ptmItems)
+    {
+        auto ptmItem = item.second;
+
+        if(ptmItem.cl == traciVehicle->getLaneIndex()) {
+            if(0 < traci->getDistance(mobility->getPositionAt(simTime()), ptmItem.cs, true) && traci->getDistance(mobility->getPositionAt(simTime()), ptmItem.cs, true) < 3000) {
                 drivingChange = true;
                break;
             }
@@ -212,6 +218,7 @@ void PhantomTrafficAppLayer::handlePositionUpdate(cObject* obj)
                 double gap_n = beaconData[i].speed * seconds_gap + 0.5 * pow(beaconData[i].acceleration, seconds_gap);
                 if(cur_gap < gap_n) {
                     stopAccel = false;
+                    break;
                 }
             }
         }
@@ -222,14 +229,14 @@ void PhantomTrafficAppLayer::handlePositionUpdate(cObject* obj)
         //While cur_gap < gap_n (<= 3km) change the car's "decel" value from 4.5 to something higher (to simulate unnecessairily strong breaks)
         //While gap_n < cur_gap (<= 3km) change the car's "decel" value back to 4.5
         if(stopAccel) {
-            stopAcc.record(0);
+            stopAcc.record(1);
             traciVehicle->setParameter("accel", 0);
             traciVehicle->setParameter("decel", 9);
             traciVehicle->slowDown(22.5, 2);
             traciVehicle->setColor(driveChangedColor);
         }
         else {
-            stopAcc.record(1);
+            stopAcc.record(0);
             traciVehicle->setParameter("accel", 2.5);
             traciVehicle->setParameter("decel", 4.5);
             traciVehicle->setColor(normalColor);

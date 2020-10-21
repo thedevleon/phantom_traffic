@@ -7,20 +7,6 @@
 
 namespace phantom_traffic {
 
-/**
- * @brief
- * A tutorial demo for TraCI. When the car is stopped for longer than 10 seconds
- * it will send a message out to other cars containing the blocked road id.
- * Receiving cars will then trigger a reroute via TraCI.
- * When channel switching between SCH and CCH is enabled on the MAC, the message is
- * instead send out on a service channel following a Service Advertisement
- * on the CCH.
- *
- * @author Christoph Sommer : initial DemoApp
- * @author David Eckhoff : rewriting, moving functionality to DemoBaseApplLayer, adding WSA
- *
- */
-
 class PHANTOM_TRAFFIC_API PhantomTrafficAppLayer : public PhantomTrafficBaseAppLayer {
 public:
     void initialize(int stage) override;
@@ -35,7 +21,7 @@ protected:
     double seconds_gap = 2;             //keep a 2/3s gap with predecesor
     double v_a_threshold = 81 / 3.6;    //average speed the cars need to drop below for the system to activate (22.5 m/s)
     double beacon_time = 1;             //time interval used to calculate v_a (also duration beacons get stored)
-    double c_time = 30;                 //time interval in which c-values are considered relevant (also duration c-values get stored)
+    double c_time = 10;                 //time interval in which c-values are considered relevant (also duration c-values get stored)
     double update_range = 50;           //Range in which a new cs/ct should be considered the same
 
     struct SBeaconData{

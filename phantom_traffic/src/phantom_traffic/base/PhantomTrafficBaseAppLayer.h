@@ -163,7 +163,7 @@ protected:
     int curLane;
 
     #define cxsize 20
-    std::vector<struct PhantomTrafficItem> ptmItems;
+    std::map<int, struct PhantomTrafficItem> ptmItems;
     
     LAddress::L2Type myId = 0;
     int mySCH;

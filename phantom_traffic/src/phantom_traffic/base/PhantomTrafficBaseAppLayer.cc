@@ -161,16 +161,18 @@ void PhantomTrafficBaseAppLayer::populateWSM(BaseFrame1609_4* wsm, LAddress::L2T
         ptm->setSenderTime(curTime);
         ptm->setSenderLane(curLane);
 
+        auto it = ptmItems.begin();
+
         for(int i = 0; i < cxsize; i++)
         {
-            if(i< ptmItems.size())
+            if(it != ptmItems.end())
             {
-                ptm->setPtmItems(i, ptmItems[i]);
+                ptm->setPtmItems(i, it->second);
             }
             else
             {
                 ptm->setPtmItems(i, PhantomTrafficItem());
-            }           
+            }          
         }
 
         ptm->setPsid(-1);
