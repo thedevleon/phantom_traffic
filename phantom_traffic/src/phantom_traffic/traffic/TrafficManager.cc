@@ -53,6 +53,8 @@ void TrafficManager::traciLoaded()
     {
         auto type = (i % (int) (numberOfVehicles/(percentageOfSmartCars*numberOfVehicles)) == 0) ? "smart_car" : "human_car";
 
+        /*
+
         if(i % 2 == 0){
             commandInterface->addVehicle(std::to_string(i), type, "r1", 0, i/100, 27.77f, 0);
         }
@@ -60,6 +62,9 @@ void TrafficManager::traciLoaded()
         {
             commandInterface->addVehicle(std::to_string(i), type, "r2", 0, i/100, 27.77f, 0);
         }
+        */
+
+        commandInterface->addVehicle(std::to_string(i), type, "r1", 0, i/100, 27.77f, 0);
     }
 }
 
@@ -71,11 +76,12 @@ void TrafficManager::timestep()
 
         for(int i = 0; i < numberOfVehicles; i++)
         {
-            bool shouldStop = (i % (int) ((numberOfVehicles/(percentageOfBrakingCars*numberOfVehicles)) + 1) == 0);
+            //bool shouldStop = (i % (int) ((numberOfVehicles/(percentageOfBrakingCars*numberOfVehicles)) + 1) == 0);
+            bool shouldStop = i < (percentageOfBrakingCars*numberOfVehicles);
 
             if(shouldStop)
             {
-                auto vehicleCommandInterface = new veins::TraCICommandInterface::Vehicle(commandInterface->vehicle(std::to_string(numberOfVehicles-1-i)));
+                auto vehicleCommandInterface = new veins::TraCICommandInterface::Vehicle(commandInterface->vehicle(std::to_string(i)));
                 vehicleCommandInterface->setSpeed(0);
                 vehicleCommandInterface->setColor(stoppedColor);
             }
@@ -88,11 +94,12 @@ void TrafficManager::timestep()
 
         for(int i = 0; i < numberOfVehicles; i++)
         {
-            bool shouldStop = (i % (int) ((numberOfVehicles/(percentageOfBrakingCars*numberOfVehicles)) + 1) == 0);
+            //bool shouldStop = (i % (int) ((numberOfVehicles/(percentageOfBrakingCars*numberOfVehicles)) + 1) == 0);
+            bool shouldStop = i < (percentageOfBrakingCars*numberOfVehicles);
 
             if(shouldStop)
             {
-                auto vehicleCommandInterface = new veins::TraCICommandInterface::Vehicle(commandInterface->vehicle(std::to_string(numberOfVehicles-1-i)));
+                auto vehicleCommandInterface = new veins::TraCICommandInterface::Vehicle(commandInterface->vehicle(std::to_string(i)));
                 vehicleCommandInterface->setSpeed(27.77f);
                 vehicleCommandInterface->setColor(normalColor);
             }
