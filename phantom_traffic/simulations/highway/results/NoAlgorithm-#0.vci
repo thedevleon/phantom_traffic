@@ -1,0 +1,133 @@
+file 4066071 1603362664                                         
+version 2
+run NoAlgorithm-0-20201022-12:28:00-15044
+attr configname NoAlgorithm
+attr datetime 20201022-12:28:00
+attr experiment NoAlgorithm
+attr inifile omnetpp.ini
+attr iterationvars ""
+attr iterationvarsf ""
+attr measurement ""
+attr network Scenario
+attr processid 15044
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+param *.node[*].appl.runAlgorithm false
+param *.playgroundSizeX 2500m
+param *.playgroundSizeY 50000m
+param *.playgroundSizeZ 50m
+param *.annotations.draw true
+param *.obstacles.debug false
+param *.world.useTorus false
+param *.world.use2D false
+param *.traciScenarioManager.updateInterval 0.01s
+param *.traciScenarioManager.host "\"localhost\""
+param *.traciScenarioManager.port 9999
+param *.traciScenarioManager.autoShutdown true
+param *.traciScenarioManager.launchConfig "xmldoc(\"highway.launchd.xml\")"
+param *.traciScenarioManager.configFile "\"highway.sumo.cfg\""
+param *.traciScenarioManager.moduleType "\"smart_car=org.car2x.veins.nodes.Car normal_car=0 human_car=0 sporty_car=0 trailer=0 coach=0\""
+param *.traciScenarioManager.moduleName "\"smart_car=node normal_car=0 human_car=0 sporty_car=0 trailer=0 coach=0\""
+param *.traciScenarioManager.moduleDisplayString "\"\""
+param *.connectionManager.sendDirect true
+param *.connectionManager.maxInterfDist 2600m
+param *.connectionManager.drawMaxIntfDist false
+param *.**.nic.mac1609_4.useServiceChannel false
+param *.**.nic.mac1609_4.txPower 20mW
+param *.**.nic.mac1609_4.bitrate 6Mbps
+param *.**.nic.phy80211p.minPowerLevel -110dBm
+param *.**.nic.phy80211p.useNoiseFloor true
+param *.**.nic.phy80211p.noiseFloor -98dBm
+param *.**.nic.phy80211p.decider "xmldoc(\"config.xml\")"
+param *.**.nic.phy80211p.analogueModels "xmldoc(\"config.xml\")"
+param *.**.nic.phy80211p.usePropagationDelay true
+param *.**.nic.phy80211p.antenna "xmldoc(\"antenna.xml\", \"/root/Antenna[@id='monopole']\")"
+param *.node[*].nic.phy80211p.antennaOffsetY "0 m"
+param *.node[*].nic.phy80211p.antennaOffsetZ "1.895 m"
+param *.node[*].applType "\"PhantomTrafficAppLayer\""
+param *.node[*].appl.headerLength "80 bit"
+param *.node[*].appl.sendBeacons true
+param *.node[*].appl.dataOnSch false
+param *.node[*].appl.beaconInterval 1s
+param *.node[*].veinsmobility.x 0
+param *.node[*].veinsmobility.y 0
+param *.node[*].veinsmobility.z 0
+param *.node[*].veinsmobility.setHostSpeed false
+param *.trafficManager.stopVehiclesAt 40
+param *.trafficManager.stopVehiclesDuration 10
+param *.trafficManager.numberOfVehicles 50
+param *.trafficManager.percentageOfSmartCars 0.05
+param *.trafficManager.percentageOfBrakingCars 0.15
+
+vector 0 Scenario.node[0].veinsmobility posx ETV
+vector 1 Scenario.node[0].veinsmobility posy ETV
+vector 2 Scenario.node[0].veinsmobility speed ETV
+vector 3 Scenario.node[0].veinsmobility acceleration ETV
+vector 4 Scenario.node[0].veinsmobility co2emission ETV
+vector 5 Scenario.node[1].veinsmobility posx ETV
+vector 6 Scenario.node[1].veinsmobility posy ETV
+vector 7 Scenario.node[1].veinsmobility speed ETV
+vector 8 Scenario.node[1].veinsmobility acceleration ETV
+vector 9 Scenario.node[1].veinsmobility co2emission ETV
+vector 10 Scenario.node[0].appl vehicleCount ETV
+vector 11 Scenario.node[0].appl averageSpeed ETV
+vector 12 Scenario.node[0].appl aboveThreshold ETV
+vector 13 Scenario.node[0].appl beaconSize ETV
+vector 14 Scenario.node[0].appl ptmItemsSize ETV
+vector 15 Scenario.node[1].appl vehicleCount ETV
+vector 16 Scenario.node[1].appl averageSpeed ETV
+vector 17 Scenario.node[1].appl aboveThreshold ETV
+vector 18 Scenario.node[1].appl updateCsCt ETV
+vector 19 Scenario.node[1].appl newCsCt ETV
+vector 20 Scenario.node[1].appl beaconSize ETV
+vector 21 Scenario.node[1].appl ptmItemsSize ETV
+vector 22 Scenario.node[2].veinsmobility posx ETV
+vector 23 Scenario.node[2].veinsmobility posy ETV
+vector 24 Scenario.node[2].veinsmobility speed ETV
+vector 25 Scenario.node[2].veinsmobility acceleration ETV
+vector 26 Scenario.node[2].veinsmobility co2emission ETV
+vector 27 Scenario.node[2].appl vehicleCount ETV
+vector 28 Scenario.node[2].appl averageSpeed ETV
+vector 29 Scenario.node[2].appl aboveThreshold ETV
+vector 30 Scenario.node[2].appl updateCsCt ETV
+vector 31 Scenario.node[2].appl newCsCt ETV
+vector 32 Scenario.node[2].appl beaconSize ETV
+vector 33 Scenario.node[2].appl ptmItemsSize ETV
+11	4316 643 5555 8832 47.550463780274 69.550464465803 21 0 25.585299075206 173.13722886351 4287.4996837667
+10	4959 545 5555 8832 47.550463780274 69.550464465803 21 0 1 7 7
+12	5504 545 5555 8832 47.550463780274 69.550464465803 21 0 0 0 0
+14	6049 545 5555 8832 47.550463780274 69.550464465803 21 0 2 23 35
+13	6594 545 5555 8832 47.550463780274 69.550464465803 21 1 1 21 21
+4	7139 336659 4 16837 0.03 120 11998 -0.29903597782777 30.370736400788 61193.074243573 418455.73426721
+3	343798 364516 4 16837 0.03 120 11998 -9 4.9972698710488 -3.8737234318435 41259.373777678
+2	708314 339806 3 16837 0.02 120 11999 0 27.808737683727 292971.58174646 7816439.0459857
+1	1048120 349539 2 16837 0.01 120 12000 29111.163178905 31188.2 362267170.07182 10940444122965
+0	1397659 349635 2 16837 0.01 120 12000 30.660000000003 2096.3224327124 12286748.992282 16505610339.258
+19	1747294 889 5834 14445 49.612880584166 104.682360888192 33 1 1 33 33
+18	1748183 889 5834 14445 49.612880584166 104.682360888192 33 0 0 0 0
+16	1749072 2275 5834 14445 49.612880584166 104.682360888192 60 0 24.763165490012 939.55919398024 19089.817453118
+15	1751347 1591 5834 14445 49.612880584166 104.682360888192 60 0 1 50 50
+17	1752938 1591 5834 14445 49.612880584166 104.682360888192 60 0 1 33 33
+21	1754529 1611 5834 14445 49.612880584166 104.682360888192 60 0 12 341 3029
+20	1756140 1591 5834 14445 49.612880584166 104.682360888192 60 1 2 67 81
+9	1757731 244186 3096 16837 28.43 120 9158 -0.34994516995338 22.451789209932 61681.216942277 757024.38679816
+8	2001917 273465 3096 16837 28.43 120 9158 -9 3.7187558628567 -4.3467110432211 56933.972245647
+7	2275382 269803 3095 16837 28.42 120 9159 16.576712384583 27.752890560087 199759.41264647 4510887.1694128
+6	2545185 269799 3094 16837 28.41 120 9160 29775.166866086 31188.2 279282651.25889 8516481284608.1
+5	2814984 269852 3094 16837 28.41 120 9160 30.660000000003 1442.1180749453 6675097.3432723 6189812899.345
+31	3084836 873 7872 13122 63.550466902851 96.550463920321 33 1 1 33 33
+30	3085709 873 7872 13122 63.550466902851 96.550463920321 33 0 0 0 0
+28	3086582 1706 7872 14710 63.550466902851 106.550461869517 42 16.581941554292 26.365883983472 808.03441001375 16099.893773933
+27	3088288 1122 7872 14710 63.550466902851 106.550461869517 42 1 1 42 42
+29	3089410 1122 7872 14710 63.550466902851 106.550461869517 42 0 1 33 33
+33	3090532 1148 7872 14710 63.550466902851 106.550461869517 42 2 12 360 3514
+32	3091680 1122 7872 14710 63.550466902851 106.550461869517 42 1 1 42 42
+26	3092802 174663 6536 16837 55.13 120 6488 -0.13193025813116 16.286806052615 39806.106290572 477737.4236791
+25	3267465 200059 6536 16837 55.13 120 6488 -9 3.2503093099145 -877.91426750889 64803.905310835
+24	3467524 199524 6535 16837 55.12 120 6489 16.576727574669 27.746422233654 127780.00435167 2598504.2800865
+23	3667048 199472 6534 16837 55.11 120 6490 30284.334524987 31188.2 199221295.59554 6115849188045.3
+22	3866520 199550 6534 16837 55.11 120 6490 30.660000000003 933.52846220827 3385664.3867327 2186930162.0767
+
