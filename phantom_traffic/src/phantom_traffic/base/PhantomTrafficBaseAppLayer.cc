@@ -97,7 +97,7 @@ void PhantomTrafficBaseAppLayer::initialize(int stage)
                 firstBeacon = computeAsynchronousSendingTime(beaconInterval, ChannelType::control);
             }
 
-            if (sendBeacons) {
+            if (sendBeacons && runAlgorithm) {
                 scheduleAt(firstBeacon, sendBeaconEvt);
             }
         }

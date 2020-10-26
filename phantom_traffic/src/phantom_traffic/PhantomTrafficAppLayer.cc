@@ -211,6 +211,8 @@ void PhantomTrafficAppLayer::handlePositionUpdate(cObject* obj)
     if(drivingChange) {
         drvChange.record(1);
         bool stopAccel = true;
+        double createDistance = 0;
+
         for(int i = 0; i < beaconData.size(); i++) {
             //from all beaconData check which cars are in front of you. Meaning is the distance positive and on the same lane.
             if(beaconData[i].lane == traciVehicle->getLaneIndex() && (traci->getDistance(mobility->getPositionAt(simTime()), beaconData[i].position, true)) > 0) {
@@ -218,6 +220,7 @@ void PhantomTrafficAppLayer::handlePositionUpdate(cObject* obj)
                 double gap_n = beaconData[i].speed * seconds_gap + 0.5 * pow(beaconData[i].acceleration, seconds_gap);
                 if(cur_gap < gap_n) {
                     stopAccel = false;
+                    createDistance = gap_n - cur_gap;
                     break;
                 }
             }
@@ -229,16 +232,20 @@ void PhantomTrafficAppLayer::handlePositionUpdate(cObject* obj)
         //While cur_gap < gap_n (<= 3km) change the car's "decel" value from 4.5 to something higher (to simulate unnecessairily strong breaks)
         //While gap_n < cur_gap (<= 3km) change the car's "decel" value back to 4.5
         if(stopAccel) {
+            //double createTime = createDistance / 5;
+
             stopAcc.record(1);
             traciVehicle->setParameter("accel", 0);
             traciVehicle->setParameter("decel", 9);
-            traciVehicle->slowDown(22.5, 2);
+            if(this->curSpeed - createDistance / 2 > 22.5) traciVehicle->setSpeed(this->curSpeed - createDistance / 2);
+            //traciVehicle->slowDown(this->curSpeed - createDistance / 2, createTime);
             traciVehicle->setColor(driveChangedColor);
         }
         else {
             stopAcc.record(0);
             traciVehicle->setParameter("accel", 2.5);
             traciVehicle->setParameter("decel", 4.5);
+            traciVehicle->setSpeed(-1);
             traciVehicle->setColor(normalColor);
         }
     }
@@ -246,6 +253,7 @@ void PhantomTrafficAppLayer::handlePositionUpdate(cObject* obj)
         drvChange.record(0);
         traciVehicle->setParameter("accel", 2.5);
         traciVehicle->setParameter("decel", 4.5);
+        traciVehicle->setSpeed(-1);
         traciVehicle->setColor(normalColor);
     }
 }

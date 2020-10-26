@@ -136,6 +136,7 @@ public:
         }
 
         void setSpeedMode(int32_t bitset);
+        void setLangeChangeMode(int32_t bitset);
         void setSpeed(double speed);
         void setMaxSpeed(double speed);
         TraCIColor getColor();

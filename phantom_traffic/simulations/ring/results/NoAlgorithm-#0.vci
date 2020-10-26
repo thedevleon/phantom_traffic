@@ -1,15 +1,15 @@
-file 8168289 1603223342                                         
+                                                                
 version 2
-run NoAlgorithm-0-20201020-21:46:10-87481
+run NoAlgorithm-0-20201026-21:44:58-3517
 attr configname NoAlgorithm
-attr datetime 20201020-21:46:10
+attr datetime 20201026-21:44:58
 attr experiment NoAlgorithm
 attr inifile omnetpp.ini
 attr iterationvars ""
 attr iterationvarsf ""
 attr measurement ""
 attr network Scenario
-attr processid 87481
+attr processid 3517
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -27,8 +27,8 @@ param *.traciScenarioManager.updateInterval 0.01s
 param *.traciScenarioManager.host "\"localhost\""
 param *.traciScenarioManager.port 9999
 param *.traciScenarioManager.autoShutdown true
-param *.traciScenarioManager.launchConfig "xmldoc(\"ring.launchd.xml\")"
-param *.traciScenarioManager.configFile "\"ring.sumo.cfg\""
+param *.traciScenarioManager.launchConfig "xmldoc(\"circle.launchd.xml\")"
+param *.traciScenarioManager.configFile "\"circle.sumo.cfg\""
 param *.traciScenarioManager.moduleType "\"smart_car=org.car2x.veins.nodes.Car normal_car=0 human_car=0\""
 param *.traciScenarioManager.moduleName "\"smart_car=node normal_car=0 human_car=0\""
 param *.traciScenarioManager.moduleDisplayString "\"\""
@@ -56,130 +56,39 @@ param *.node[*].veinsmobility.x 0
 param *.node[*].veinsmobility.y 0
 param *.node[*].veinsmobility.z 0
 param *.node[*].veinsmobility.setHostSpeed false
-param *.trafficManager.stopVehiclesAt 50
-param *.trafficManager.stopVehiclesDuration 5
+param *.trafficManager.stopVehiclesAt 40
+param *.trafficManager.stopVehiclesDuration 10
 param *.trafficManager.numberOfVehicles 100
-param *.trafficManager.percentageOfSmartCars 0.05
-param *.trafficManager.percentageOfBrakingCars 0.1
+param *.trafficManager.percentageOfSmartCars 0.1
+param *.trafficManager.percentageOfBrakingCars 0.35
 
 vector 0 Scenario.node[0].veinsmobility posx ETV
 vector 1 Scenario.node[0].veinsmobility posy ETV
-vector 2 Scenario.node[0].veinsmobility speed ETV
-vector 3 Scenario.node[0].veinsmobility acceleration ETV
-vector 4 Scenario.node[0].veinsmobility co2emission ETV
-vector 5 Scenario.node[1].veinsmobility posx ETV
-vector 6 Scenario.node[1].veinsmobility posy ETV
-vector 7 Scenario.node[1].veinsmobility speed ETV
-vector 8 Scenario.node[1].veinsmobility acceleration ETV
-vector 9 Scenario.node[1].veinsmobility co2emission ETV
-vector 10 Scenario.node[1].appl vehicleCount ETV
-vector 11 Scenario.node[1].appl averageSpeed ETV
-vector 12 Scenario.node[1].appl aboveThreshold ETV
-vector 13 Scenario.node[1].appl beaconSize ETV
-vector 14 Scenario.node[1].appl ptmItemsSize ETV
-vector 15 Scenario.node[0].appl vehicleCount ETV
-vector 16 Scenario.node[0].appl averageSpeed ETV
-vector 17 Scenario.node[0].appl aboveThreshold ETV
-vector 18 Scenario.node[0].appl beaconSize ETV
-vector 19 Scenario.node[0].appl ptmItemsSize ETV
-vector 20 Scenario.node[2].veinsmobility posx ETV
-vector 21 Scenario.node[2].veinsmobility posy ETV
+vector 2 Scenario.node[1].veinsmobility posx ETV
+vector 3 Scenario.node[1].veinsmobility posy ETV
+vector 4 Scenario.node[2].veinsmobility posx ETV
+vector 5 Scenario.node[2].veinsmobility posy ETV
+vector 6 Scenario.node[3].veinsmobility posx ETV
+vector 7 Scenario.node[3].veinsmobility posy ETV
+vector 8 Scenario.node[4].veinsmobility posx ETV
+vector 9 Scenario.node[4].veinsmobility posy ETV
+vector 10 Scenario.node[5].veinsmobility posx ETV
+vector 11 Scenario.node[5].veinsmobility posy ETV
+vector 12 Scenario.node[6].veinsmobility posx ETV
+vector 13 Scenario.node[6].veinsmobility posy ETV
+vector 14 Scenario.node[7].veinsmobility posx ETV
+vector 15 Scenario.node[7].veinsmobility posy ETV
+vector 16 Scenario.node[8].veinsmobility posx ETV
+vector 17 Scenario.node[8].veinsmobility posy ETV
+vector 18 Scenario.node[9].veinsmobility posx ETV
+vector 19 Scenario.node[9].veinsmobility posy ETV
+vector 20 Scenario.node[0].veinsmobility speed ETV
+vector 21 Scenario.node[1].veinsmobility speed ETV
 vector 22 Scenario.node[2].veinsmobility speed ETV
-vector 23 Scenario.node[2].veinsmobility acceleration ETV
-vector 24 Scenario.node[2].veinsmobility co2emission ETV
-vector 25 Scenario.node[2].appl vehicleCount ETV
-vector 26 Scenario.node[2].appl averageSpeed ETV
-vector 27 Scenario.node[2].appl aboveThreshold ETV
-vector 28 Scenario.node[2].appl beaconSize ETV
-vector 29 Scenario.node[2].appl ptmItemsSize ETV
-vector 30 Scenario.node[1].appl updateCsCt ETV
-vector 31 Scenario.node[1].appl newCsCt ETV
-vector 32 Scenario.node[3].veinsmobility posx ETV
-vector 33 Scenario.node[3].veinsmobility posy ETV
-vector 34 Scenario.node[3].veinsmobility speed ETV
-vector 35 Scenario.node[3].veinsmobility acceleration ETV
-vector 36 Scenario.node[3].veinsmobility co2emission ETV
-vector 37 Scenario.node[3].appl vehicleCount ETV
-vector 38 Scenario.node[3].appl averageSpeed ETV
-vector 39 Scenario.node[3].appl aboveThreshold ETV
-vector 40 Scenario.node[3].appl beaconSize ETV
-vector 41 Scenario.node[3].appl ptmItemsSize ETV
-vector 42 Scenario.node[2].appl updateCsCt ETV
-vector 43 Scenario.node[3].appl updateCsCt ETV
-vector 44 Scenario.node[3].appl newCsCt ETV
-vector 45 Scenario.node[2].appl newCsCt ETV
-vector 46 Scenario.node[4].veinsmobility posx ETV
-vector 47 Scenario.node[4].veinsmobility posy ETV
-vector 48 Scenario.node[4].veinsmobility speed ETV
-vector 49 Scenario.node[4].veinsmobility acceleration ETV
-vector 50 Scenario.node[4].veinsmobility co2emission ETV
-vector 51 Scenario.node[4].appl vehicleCount ETV
-vector 52 Scenario.node[4].appl averageSpeed ETV
-vector 53 Scenario.node[4].appl aboveThreshold ETV
-vector 54 Scenario.node[4].appl beaconSize ETV
-vector 55 Scenario.node[4].appl ptmItemsSize ETV
-vector 56 Scenario.node[4].appl updateCsCt ETV
-vector 57 Scenario.node[4].appl newCsCt ETV
-vector 58 Scenario.node[0].appl updateCsCt ETV
-vector 59 Scenario.node[0].appl newCsCt ETV
-59	5541 6247 10981 28206 54.696440208426 119.696449283411 229 1 1 229 229
-58	11788 6791 10981 28206 54.696440208426 119.696449283411 249 0 1 20 20
-16	18579 14448 713 28206 6.371886235811 119.696449283411 404 0 23.650358716268 4604.2587130056 86086.695860102
-15	33027 10823 713 28206 6.371886235811 119.696449283411 404 0 1 261 261
-17	43850 10823 713 28206 6.371886235811 119.696449283411 404 0 1 237 237
-19	54673 11386 713 28206 6.371886235811 119.696449283411 404 0 158 32583 3937009
-18	66059 10823 713 28206 6.371886235811 119.696449283411 404 1 4 1514 5832
-4	76882 331333 4 28237 0.03 120 11998 -3.8250742485749 30.313261398591 57903.671390246 621654.17541486
-3	408215 363941 4 28237 0.03 120 11998 -9 4.9947464796719 -708.32929117521 43092.69193457
-2	772156 349389 3 28237 0.02 120 11999 0 39.078634211297 275061.49289766 7077663.2522063
-1	1121545 352145 2 28237 0.01 120 12000 26.629692288539 423.36854831993 2819121.7030832 881870600.72307
-0	1473690 352136 2 28237 0.01 120 12000 26.631518399473 423.37157618594 2636922.3235084 822755380.04376
-31	1825826 8699 2052 28194 15.696446143516 119.696448363857 325 1 1 325 325
-30	1834525 8699 2052 28194 15.696446143516 119.696448363857 325 0 0 0 0
-11	1843224 15514 622 28194 5.612873603142 119.696448363857 405 0 24.130420820693 6004.5766674197 109745.61360237
-10	1858738 10822 622 28194 5.612873603142 119.696448363857 405 0 3 620 1238
-12	1869560 10822 622 28194 5.612873603142 119.696448363857 405 0 1 325 325
-14	1880382 11485 622 28194 5.612873603142 119.696448363857 405 0 171 43582 5609532
-13	1891867 10822 622 28194 5.612873603142 119.696448363857 405 1 4 1516 5838
-9	1902689 302189 596 28237 5.5 120 11451 -0.57685611647283 23.377655128311 45675.195723924 338479.07538171
-8	2204878 334368 596 28237 5.5 120 11451 -9 4.8442594505165 -1091.3149157485 41834.565337591
-7	2539246 337616 595 28237 5.49 120 11452 4.0267702061052 27.752840691273 184346.38176565 3381492.6159712
-6	2876862 337600 594 28237 5.48 120 11453 29.86579118292 420.13443359726 2303425.9294001 657111717.41616
-5	3214462 337587 594 28237 5.48 120 11453 29.865744791913 420.13796218213 2474773.9992151 760769914.35751
-45	3552049 9050 5201 28165 32.371889140417 119.612877090505 336 1 1 336 336
-42	3561099 9752 4577 28165 29.371886485219 119.612877090505 363 0 1 27 27
-26	3570851 16030 1538 28165 12.612871629993 119.612877090505 397 0 27.123589428341 7063.9590579903 135138.22645894
-25	3586881 10643 1538 28165 12.612871629993 119.612877090505 397 0 3 511 803
-27	3597524 10643 1538 28165 12.612871629993 119.612877090505 397 0 1 345 345
-29	3608167 11292 1538 28165 12.612871629993 119.612877090505 397 0 173 45269 6352559
-28	3619459 10643 1538 28165 12.612871629993 119.612877090505 397 1 4 1506 5822
-24	3630102 300955 1509 28237 12.53 120 10748 -0.016163396036144 11.195281938701 36875.852998058 199543.3019004
-23	3931057 335547 1509 28237 12.53 120 10748 -9 3.4651434395359 -1007.5608438775 19995.240064478
-22	4266604 328845 1508 28237 12.52 120 10749 7.2003155646993 27.746070495942 194730.54988336 3777642.7255789
-21	4595449 328879 1507 28237 12.51 120 10750 26.631174019298 423.37749706069 2213822.4802457 650155696.95221
-20	4924328 328960 1507 28237 12.51 120 10750 26.629377353071 423.37758931133 2358618.3199267 729617120.42287
-44	5253288 7618 5075 28198 31.612881685667 119.696448912239 284 1 1 284 284
-43	5260906 8951 5001 28198 31.371884467064 119.696448912239 335 0 1 51 51
-38	5269857 14442 3129 28198 22.371889325176 119.696448912239 378 0 22.580069821204 4922.5649934572 81514.080524287
-37	5284299 10146 3129 28198 22.371889325176 119.696448912239 378 0 3 595 1219
-39	5294445 10146 3129 28198 22.371889325176 119.696448912239 378 0 1 307 307
-41	5304591 10775 3129 28198 22.371889325176 119.696448912239 378 13 182 43501 6103653
-40	5315366 10146 3129 28198 22.371889325176 119.696448912239 378 1 4 1467 5741
-36	5325512 269570 3053 28237 21.88 120 9813 0.09751520867514 23.491674829714 33116.074584708 187129.492884
-35	5595082 312361 3053 28237 21.88 120 9813 -9 4.7998143463994 -1532.4982157121 18325.808182263
-34	5907443 301001 3052 28237 21.87 120 9814 6.3453925496084 27.753639371451 165878.79214441 2979898.5789235
-33	6208444 301066 3051 28237 21.86 120 9815 29.866228349818 420.12609707967 2210879.2022465 662994577.75761
-32	6509510 301060 3051 28237 21.86 120 9815 29.873962480781 420.13329308674 1931884.5027382 572721811.88618
-57	6810570 5734 9521 28202 49.371882811386 119.696449270896 211 1 1 211 211
-56	6816304 16302 9038 28202 47.559596219245 119.696449270896 601 0 1 390 390
-52	6832606 13094 6080 28202 36.371885519631 119.696449270896 336 0 21.161691185211 4459.5434550836 71816.406469364
-51	6845700 9062 6080 28202 36.371885519631 119.696449270896 336 0 3 516 1026
-53	6854762 9062 6080 28202 36.371885519631 119.696449270896 336 0 1 291 291
-55	6863824 9607 6080 28202 36.371885519631 119.696449270896 336 20 203 38541 5800183
-54	6873431 9062 6080 28202 36.371885519631 119.696449270896 336 1 4 1338 5342
-50	6882493 237130 5963 28237 35.86 120 8415 -0.071359600752333 21.397801236486 30756.206364281 208328.03413182
-49	7119623 270468 5963 28237 35.86 120 8415 -9 4.7355343455358 -788.73703394863 16824.543745734
-48	7390091 259398 5962 28237 35.85 120 8416 10.541250432149 27.750558331489 148639.4252161 2703114.7888028
-47	7649489 259409 5961 28237 35.84 120 8417 29.866122565784 420.13818865858 2019229.4747228 636369656.41163
-46	7908898 259390 5961 28237 35.84 120 8417 29.861435888403 420.13725677209 1703992.6203322 500695390.20507
-
+vector 23 Scenario.node[3].veinsmobility speed ETV
+vector 24 Scenario.node[4].veinsmobility speed ETV
+vector 25 Scenario.node[5].veinsmobility speed ETV
+vector 26 Scenario.node[6].veinsmobility speed ETV
+vector 27 Scenario.node[7].veinsmobility speed ETV
+vector 28 Scenario.node[8].veinsmobility speed ETV
+vector 29 Scenario.node[9].veinsmobili

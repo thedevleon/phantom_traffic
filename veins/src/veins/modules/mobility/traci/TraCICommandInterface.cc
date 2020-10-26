@@ -139,6 +139,14 @@ void TraCICommandInterface::Vehicle::setSpeedMode(int32_t bitset)
     ASSERT(buf.eof());
 }
 
+void TraCICommandInterface::Vehicle::setLangeChangeMode(int32_t bitset)
+{
+    uint8_t variableId = VAR_LANESETMODE;
+    uint8_t variableType = TYPE_INTEGER;
+    TraCIBuffer buf = traci->connection.query(CMD_SET_VEHICLE_VARIABLE, TraCIBuffer() << variableId << nodeId << variableType << bitset);
+    ASSERT(buf.eof());
+}
+
 void TraCICommandInterface::Vehicle::setSpeed(double speed)
 {
     uint8_t variableId = VAR_SPEED;

@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<routes>
+	<!-- VEHICLE TYPES -->
+    <vType id="smart_car" accel="2.5" decel="4.5" sigma="0.5" length="3" minGap="0.5" maxSpeed="40" />   
+    <vType id="human_car" accel="2.5" decel="4.5" sigma="0.5" length="3" minGap="0.5" maxSpeed="40" color="0,0,1" vClass="passenger" guiShape="passenger" speedFactor="1"/>
+       
+</routes>

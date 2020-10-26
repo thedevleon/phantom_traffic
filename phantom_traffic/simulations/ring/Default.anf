@@ -1,25 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<scave:Analysis xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:scave="http://www.omnetpp.org/omnetpp/scave">
+<scave:Analysis xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scave="http://www.omnetpp.org/omnetpp/scave">
   <inputs>
     <inputs name="/phantom_traffic/simulations/ring/results/Default-*.vec"/>
     <inputs name="/phantom_traffic/simulations/ring/results/Default-*.sca"/>
-    <inputs name="/phantom_traffic/simulations/ring/results/NoAlgorithm-#0.sca"/>
-    <inputs name="/phantom_traffic/simulations/ring/results/NoAlgorithm-#0.vec"/>
   </inputs>
-  <datasets>
-    <datasets name="Comparison">
-      <items xsi:type="scave:Add" filterPattern="module(Scenario.node[1].veinsmobility) AND name(speed)" type="VECTOR"/>
-      <items xsi:type="scave:Add" filterPattern="module(Scenario.node[1].veinsmobility) AND name(acceleration)" type="VECTOR"/>
-      <items xsi:type="scave:Add" filterPattern="module(Scenario.node[1].veinsmobility) AND name(speed)" type="VECTOR"/>
-      <items xsi:type="scave:Add" filterPattern="module(Scenario.node[1].veinsmobility) AND name(acceleration)" type="VECTOR"/>
-      <items xsi:type="scave:LineChart" name="Algo vs NoAlgo" lineNameFormat="">
-        <properties name="Legend.Display" value="true"/>
-        <properties name="Line.Name//phantom_traffic/simulations/ring/results/Default-#0.vec Default-0-20201020-21:42:20-87440 acceleration Default" value="Acceleration (Algo)"/>
-        <properties name="Line.Name//phantom_traffic/simulations/ring/results/Default-#0.vec Default-0-20201020-21:42:20-87440 speed Default" value="Speed (Algo)"/>
-        <properties name="Line.Name//phantom_traffic/simulations/ring/results/NoAlgorithm-#0.vec NoAlgorithm-0-20201020-21:46:10-87481 acceleration NoAlgorithm" value="Acceleration (NoAlgo)"/>
-        <properties name="Line.Name//phantom_traffic/simulations/ring/results/NoAlgorithm-#0.vec NoAlgorithm-0-20201020-21:46:10-87481 speed NoAlgorithm" value="Speed (NoAlgo)"/>
-      </items>
-    </datasets>
-  </datasets>
+  <datasets/>
   <chartSheets/>
 </scave:Analysis>

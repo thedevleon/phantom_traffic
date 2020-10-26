@@ -1,0 +1,37 @@
+<!-- Generated with ./ringGen.py -l 3 -d 2000 -->
+
+<!--
+// Copyright (C) 2019 Michele Segata <segata@ccs-labs.org>
+//
+// Documentation for these modules is at http://veins.car2x.org/
+//
+// SPDX-License-Identifier: (GPL-2.0-or-later OR CC-BY-SA-4.0)
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+//
+// -
+//
+// At your option, you can also redistribute and/or modify this file
+// under a
+// Creative Commons Attribution-ShareAlike 4.0 International License.
+//
+// You should have received a copy of the license along with this
+// work.  If not, see <http://creativecommons.org/licenses/by-sa/4.0/>.
+-->
+
+<edges>
+    <edge id="edg1" from="node1" to="node2" numLanes="3" speed="13.900000" length="1000.000000" shape="95.11,292.71 190.21,261.80 307.77,100.00 307.77,-100.00 190.21,-261.80 0.00,-323.61 -95.11,-292.71"/>
+    <edge id="edg2" from="node2" to="node1" numLanes="3" speed="13.900000" length="1000.000000" shape="-95.11,-292.71 -190.21,-261.80 -307.77,-100.00 -307.77,100.00 -190.21,261.80 0.00,323.61 95.11,292.71"/>
+</edges>

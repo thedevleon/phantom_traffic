@@ -372,6 +372,7 @@ const uint8_t VAR_SIGNALS = 0x5b;
 const uint8_t VAR_SLOPE = 0x36;
 const uint8_t VAR_SPEED = 0x40;
 const uint8_t VAR_SPEEDSETMODE = 0xb3;
+const uint8_t VAR_LANESETMODE = 0xb6;
 const uint8_t VAR_SPEED_DEVIATION = 0x5f;
 const uint8_t VAR_SPEED_FACTOR = 0x5e;
 const uint8_t VAR_SPEED_WITHOUT_TRACI = 0xb1;
