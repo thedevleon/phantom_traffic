@@ -226,6 +226,8 @@ void PhantomTrafficAppLayer::handlePositionUpdate(cObject* obj)
             }
         }
 
+        createDistanceLog.record(createDistance);
+
         //Don't accelerate until you have a big enough gap (gap_n) between itself and next car. (distance predecessor travels in 2s)
         //To calculate gap_n (all in m/s): curSpeedPred * 2 + 0.5 * (curAccelPred ^ 2)
         //curPositionPred - curPosition (cur_gap) > gap_n
@@ -237,7 +239,12 @@ void PhantomTrafficAppLayer::handlePositionUpdate(cObject* obj)
             stopAcc.record(1);
             traciVehicle->setParameter("accel", 0);
             traciVehicle->setParameter("decel", 9);
-            if(this->curSpeed - createDistance / 2 > 22.5) traciVehicle->setSpeed(this->curSpeed - createDistance / 2);
+            if(this->curSpeed - 1 > 16)
+            {
+                traciVehicle->setMaxSpeed(this->curSpeed - 1);
+                traciVehicle->setSpeed(this->curSpeed - 1);
+                //traciVehicle->slowDown(this->curSpeed - 1, 1);
+            }
             //traciVehicle->slowDown(this->curSpeed - createDistance / 2, createTime);
             traciVehicle->setColor(driveChangedColor);
         }
@@ -245,6 +252,7 @@ void PhantomTrafficAppLayer::handlePositionUpdate(cObject* obj)
             stopAcc.record(0);
             traciVehicle->setParameter("accel", 2.5);
             traciVehicle->setParameter("decel", 4.5);
+            traciVehicle->setMaxSpeed(40);
             traciVehicle->setSpeed(-1);
             traciVehicle->setColor(normalColor);
         }
@@ -253,6 +261,7 @@ void PhantomTrafficAppLayer::handlePositionUpdate(cObject* obj)
         drvChange.record(0);
         traciVehicle->setParameter("accel", 2.5);
         traciVehicle->setParameter("decel", 4.5);
+        traciVehicle->setMaxSpeed(40);
         traciVehicle->setSpeed(-1);
         traciVehicle->setColor(normalColor);
     }

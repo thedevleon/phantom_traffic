@@ -1,4 +1,4 @@
-<!-- Generated with ./ringGen.py -l 3 -d 2000 -->
+<!-- Generated with ./ringGen.py -l 3 -d 1500 -->
 
 <!--
 // Copyright (C) 2019 Michele Segata <segata@ccs-labs.org>
@@ -32,6 +32,6 @@
 -->
 
 <nodes>
-    <node id="node1" x="95.11" y="292.71"/>
-    <node id="node2" x="-95.11" y="-292.71"/>
+    <node id="node1" x="71.33" y="219.53"/>
+    <node id="node2" x="-71.33" y="-219.53"/>
 </nodes>

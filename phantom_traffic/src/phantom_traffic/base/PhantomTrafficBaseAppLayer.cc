@@ -71,6 +71,7 @@ void PhantomTrafficBaseAppLayer::initialize(int stage)
         avgSpeed.setName("averageSpeed");
         updateCsCt.setName("updateCsCt");
         newCsCt.setName("newCsCt");
+        createDistanceLog.setName("createDistance");
     }
     else if (stage == 1) {
 

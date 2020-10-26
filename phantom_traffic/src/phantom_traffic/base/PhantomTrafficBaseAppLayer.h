@@ -183,7 +183,7 @@ protected:
     cMessage* sendWSAEvt;
 
     //Vectors for recording
-    cOutVector stopAcc, drvChange, bdSize, ptmItemsSize, aboveThreshold, vCount, avgSpeed, updateCsCt, newCsCt;
+    cOutVector stopAcc, drvChange, bdSize, ptmItemsSize, aboveThreshold, vCount, avgSpeed, updateCsCt, newCsCt, createDistanceLog;
 };
 
 } // namespace phantom_traffic

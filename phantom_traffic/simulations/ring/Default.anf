@@ -3,6 +3,8 @@
   <inputs>
     <inputs name="/phantom_traffic/simulations/ring/results/Default-*.vec"/>
     <inputs name="/phantom_traffic/simulations/ring/results/Default-*.sca"/>
+    <inputs name="/phantom_traffic/simulations/ring/results/NoAlgorithm-#0.vec"/>
+    <inputs name="/phantom_traffic/simulations/ring/results/NoAlgorithm-#0.sca"/>
   </inputs>
   <datasets/>
   <chartSheets/>
