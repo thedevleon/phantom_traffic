@@ -73,12 +73,21 @@ void PhantomTrafficAppLayer::onPTM(PhantomTrafficMessage* ptm)
     //calculate the average speed (v_a(t)) of vehicles ahead of itself (in the same lane) using the last 1s of beacon information
     double v_a = 0;
     int count = 0;
+    double maxDistance = 0;
+    veins:Coord farthestPosition;
+
     for(auto curBeacon : beaconData) {
         if(curBeacon.lane == traciVehicle->getLaneIndex()) {
             double distance = traci->getDistance(mobility->getPositionAt(simTime()), curBeacon.position, true);
             if(distance > 0 && distance < forward_range) {
                 v_a = v_a + curBeacon.speed;
                 count++;
+
+                if(distance > maxDistance)
+                {
+                    farthestPosition = curBeacon.position;
+                    maxDistance = distance;
+                }
             }
         }
     }
@@ -113,7 +122,7 @@ void PhantomTrafficAppLayer::onPTM(PhantomTrafficMessage* ptm)
         if(!update) {
             //create new ptmItem
             auto randId = intrand(100000);
-            ptmItems[randId] =  PhantomTrafficItem(randId, this->myId, mobility->getPositionAt(simTime()), simTime().dbl(), traciVehicle->getLaneIndex());
+            ptmItems[randId] =  PhantomTrafficItem(randId, this->myId, farthestPosition, simTime().dbl(), traciVehicle->getLaneIndex());
             updateCsCt.record(false);
             newCsCt.record(true);
         }
@@ -184,7 +193,10 @@ void PhantomTrafficAppLayer::handlePositionUpdate(cObject* obj)
 
         for(int i = 0; i < beaconData.size(); i++) {
             //from all beaconData check which cars are in front of you. Meaning is the distance positive and on the same lane.
-            if(beaconData[i].lane == traciVehicle->getLaneIndex() && (traci->getDistance(mobility->getPositionAt(simTime()), beaconData[i].position, true)) > 0) {
+            if(beaconData[i].lane == traciVehicle->getLaneIndex()
+                    && (traci->getDistance(mobility->getPositionAt(simTime()), beaconData[i].position, true)) > 0
+                    && (traci->getDistance(mobility->getPositionAt(simTime()), beaconData[i].position, true)) < forward_range)
+            {
                 double cur_gap = traci->getDistance(mobility->getPositionAt(simTime()), beaconData[i].position, true);
                 double gap_n = beaconData[i].speed * seconds_gap + 0.5 * pow(beaconData[i].acceleration, seconds_gap);
                 if(cur_gap < gap_n) {
@@ -204,14 +216,14 @@ void PhantomTrafficAppLayer::handlePositionUpdate(cObject* obj)
             if(this->curSpeed - 1 > 13.8)
             {
                 traciVehicle->setMaxSpeed(this->curSpeed - 1);
-                traciVehicle->setSpeed(this->curSpeed - 1);
+                //traciVehicle->setSpeed(this->curSpeed - 1);
             }
             traciVehicle->setColor(driveChangedColor);
         }
         else {
             stopAcc.record(0);
             traciVehicle->setMaxSpeed(40);
-            traciVehicle->setSpeed(-1);
+            //traciVehicle->setSpeed(-1);
             traciVehicle->setColor(normalColor);
         }
     }
@@ -219,7 +231,7 @@ void PhantomTrafficAppLayer::handlePositionUpdate(cObject* obj)
         stopAcc.record(0);
         drvChange.record(0);
         traciVehicle->setMaxSpeed(40);
-        traciVehicle->setSpeed(-1);
+        //traciVehicle->setSpeed(-1);
         traciVehicle->setColor(normalColor);
     }
 }
