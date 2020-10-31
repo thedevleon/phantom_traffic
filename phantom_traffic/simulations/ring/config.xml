@@ -34,7 +34,7 @@
 <root>
     <AnalogueModels>
         <AnalogueModel type="SimplePathlossModel" thresholding="true">
-            <parameter name="alpha" type="double" value="2.0"/>
+            <parameter name="alpha" type="double" value="2"/>
         </AnalogueModel>
         <!--
         <AnalogueModel type="SimpleObstacleShadowing" thresholding="true">

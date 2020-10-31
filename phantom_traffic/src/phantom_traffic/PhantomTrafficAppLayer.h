@@ -23,9 +23,8 @@ protected:
     double beacon_time = 1;             //time interval used to calculate v_a (also duration beacons get stored)
     double c_time = 10;                 //time interval in which c-values are considered relevant (also duration c-values get stored)
     double update_range = 50;           //Range in which a new cs/ct should be considered the same
-    double activation_range = 500;
-
-    double treshold_change = false;
+    double forward_range = 500;
+    double congestion_range = 1000;
 
     struct SBeaconData{
         double time;

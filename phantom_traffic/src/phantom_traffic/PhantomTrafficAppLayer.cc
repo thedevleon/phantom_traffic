@@ -76,7 +76,7 @@ void PhantomTrafficAppLayer::onPTM(PhantomTrafficMessage* ptm)
     for(auto curBeacon : beaconData) {
         if(curBeacon.lane == traciVehicle->getLaneIndex()) {
             double distance = traci->getDistance(mobility->getPositionAt(simTime()), curBeacon.position, true);
-            if(distance > 0 && distance < activation_range) {
+            if(distance > 0 && distance < forward_range) {
                 v_a = v_a + curBeacon.speed;
                 count++;
             }
@@ -92,10 +92,7 @@ void PhantomTrafficAppLayer::onPTM(PhantomTrafficMessage* ptm)
     if(v_a < v_a_threshold && count > 0) {
         aboveThreshold.record(1);
 
-        if(!treshold_change) traciVehicle->setColor(thresholdColor);
-        treshold_change = true;
-
-        //To make sure we dont store the same congestion to many many times we first
+        //To make sure we don't store the same congestion to many many times we first
         //check each current c-vector - if cs is within 5m of the potentially new cs and it's 
         //in the same lane, just update the ct (the congestion is still present)
 
@@ -125,21 +122,18 @@ void PhantomTrafficAppLayer::onPTM(PhantomTrafficMessage* ptm)
     else
     {
         aboveThreshold.record(0);
-        if(treshold_change) traciVehicle->setColor(this->thresholdColor);
-        treshold_change = false;
-        //traciVehicle->setColor(normalColor);
     }
     
     drivingChange = false;
 
-    //if 0 < c_s - currentPos < 3km set B (change driving behaviour) to true, only for cars in the same lane
+    //if 0 < c_s - currentPos < congestion_range set B (change driving behavior) to true, only for cars in the same lane
 
     for (auto const& item : ptmItems)
     {
         auto ptmItem = item.second;
 
         if(ptmItem.cl == traciVehicle->getLaneIndex()) {
-            if(0 < traci->getDistance(mobility->getPositionAt(simTime()), ptmItem.cs, true) && traci->getDistance(mobility->getPositionAt(simTime()), ptmItem.cs, true) < activation_range) {
+            if(0 < traci->getDistance(mobility->getPositionAt(simTime()), ptmItem.cs, true) && traci->getDistance(mobility->getPositionAt(simTime()), ptmItem.cs, true) < congestion_range) {
                 drivingChange = true;
                break;
             }
@@ -167,43 +161,12 @@ void PhantomTrafficAppLayer::onWSA(DemoServiceAdvertisment* wsa)
 
 void PhantomTrafficAppLayer::onWSM(BaseFrame1609_4* frame)
 {
-    /*
-    ApplicationLayerTestMessage* wsm = check_and_cast<ApplicationLayerTestMessage*>(frame);
-
-    findHost()->getDisplayString().setTagArg("i", 1, "green");
-
-    if (mobility->getRoadId()[0] != ':') traciVehicle->changeRoute(wsm->getDemoData(), 9999);
-    if (!sentMessage) {
-        sentMessage = true;
-        // repeat the received traffic update once in 2 seconds plus some random delay
-        wsm->setSenderAddress(myId);
-        wsm->setSerial(3);
-        scheduleAt(simTime() + 2 + uniform(0.01, 0.2), wsm->dup());
-    }
-    */
+    //Empty
 }
 
 void PhantomTrafficAppLayer::handleSelfMsg(cMessage* msg)
 {
-    /*
-    if (ApplicationLayerTestMessage* wsm = dynamic_cast<ApplicationLayerTestMessage*>(msg)) {
-        // send this message on the service channel until the counter is 3 or higher.
-        // this code only runs when channel switching is enabled
-        sendDown(wsm->dup());
-        wsm->setSerial(wsm->getSerial() + 1);
-        if (wsm->getSerial() >= 3) {
-            // stop service advertisements
-            stopService();
-            delete (wsm);
-        }
-        else {
-            scheduleAt(simTime() + 1, wsm);
-        }
-    }
-    else {
-    */
-        PhantomTrafficBaseAppLayer::handleSelfMsg(msg);
-    //}
+    PhantomTrafficBaseAppLayer::handleSelfMsg(msg);
 }
 
 
@@ -217,9 +180,7 @@ void PhantomTrafficAppLayer::handlePositionUpdate(cObject* obj)
     //While b = true:
     if(drivingChange) {
         drvChange.record(1);
-        bool stopAccel = true;
-        /*
-        double createDistance = 0.0d;
+        bool stopAccel = false;
 
         for(int i = 0; i < beaconData.size(); i++) {
             //from all beaconData check which cars are in front of you. Meaning is the distance positive and on the same lane.
@@ -228,14 +189,10 @@ void PhantomTrafficAppLayer::handlePositionUpdate(cObject* obj)
                 double gap_n = beaconData[i].speed * seconds_gap + 0.5 * pow(beaconData[i].acceleration, seconds_gap);
                 if(cur_gap < gap_n) {
                     stopAccel = true;
-                    createDistance = gap_n - cur_gap;
                     break;
                 }
             }
         }
-
-        createDistanceLog.record(createDistance);
-        */
 
         //Don't accelerate until you have a big enough gap (gap_n) between itself and next car. (distance predecessor travels in 2s)
         //To calculate gap_n (all in m/s): curSpeedPred * 2 + 0.5 * (curAccelPred ^ 2)
@@ -243,24 +200,16 @@ void PhantomTrafficAppLayer::handlePositionUpdate(cObject* obj)
         //While cur_gap < gap_n (<= 3km) change the car's "decel" value from 4.5 to something higher (to simulate unnecessairily strong breaks)
         //While gap_n < cur_gap (<= 3km) change the car's "decel" value back to 4.5
         if(stopAccel) {
-            //double createTime = createDistance / 5;
-
             stopAcc.record(1);
-            traciVehicle->setParameter("accel", 0);
-            traciVehicle->setParameter("decel", 9);
-            if(this->curSpeed - 1 > 16)
+            if(this->curSpeed - 1 > 13.8)
             {
                 traciVehicle->setMaxSpeed(this->curSpeed - 1);
                 traciVehicle->setSpeed(this->curSpeed - 1);
-                //traciVehicle->slowDown(this->curSpeed - 1, 1);
             }
-            //traciVehicle->slowDown(this->curSpeed - createDistance / 2, createTime);
             traciVehicle->setColor(driveChangedColor);
         }
         else {
             stopAcc.record(0);
-            traciVehicle->setParameter("accel", 2.5);
-            traciVehicle->setParameter("decel", 4.5);
             traciVehicle->setMaxSpeed(40);
             traciVehicle->setSpeed(-1);
             traciVehicle->setColor(normalColor);
@@ -269,8 +218,6 @@ void PhantomTrafficAppLayer::handlePositionUpdate(cObject* obj)
     else {
         stopAcc.record(0);
         drvChange.record(0);
-        traciVehicle->setParameter("accel", 2.5);
-        traciVehicle->setParameter("decel", 4.5);
         traciVehicle->setMaxSpeed(40);
         traciVehicle->setSpeed(-1);
         traciVehicle->setColor(normalColor);
