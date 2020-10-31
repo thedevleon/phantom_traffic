@@ -43,7 +43,7 @@ void PhantomTrafficAppLayer::onPTM(PhantomTrafficMessage* ptm)
             }
             else
             {
-                ptmItems[item.id] = PhantomTrafficItem(item.id, item.cs, item.ct, item.cl);
+                ptmItems[item.id] = item;
             }
         }
     }
@@ -76,7 +76,7 @@ void PhantomTrafficAppLayer::onPTM(PhantomTrafficMessage* ptm)
     for(auto curBeacon : beaconData) {
         if(curBeacon.lane == traciVehicle->getLaneIndex()) {
             double distance = traci->getDistance(mobility->getPositionAt(simTime()), curBeacon.position, true);
-            if(distance > 0) {
+            if(distance > 0 && distance < activation_range) {
                 v_a = v_a + curBeacon.speed;
                 count++;
             }
@@ -91,6 +91,10 @@ void PhantomTrafficAppLayer::onPTM(PhantomTrafficMessage* ptm)
     //start adding these to the beacon
     if(v_a < v_a_threshold && count > 0) {
         aboveThreshold.record(1);
+
+        if(!treshold_change) traciVehicle->setColor(thresholdColor);
+        treshold_change = true;
+
         //To make sure we dont store the same congestion to many many times we first
         //check each current c-vector - if cs is within 5m of the potentially new cs and it's 
         //in the same lane, just update the ct (the congestion is still present)
@@ -112,7 +116,7 @@ void PhantomTrafficAppLayer::onPTM(PhantomTrafficMessage* ptm)
         if(!update) {
             //create new ptmItem
             auto randId = intrand(100000);
-            ptmItems[randId] =  PhantomTrafficItem(randId, mobility->getPositionAt(simTime()), simTime().dbl(), traciVehicle->getLaneIndex());
+            ptmItems[randId] =  PhantomTrafficItem(randId, this->myId, mobility->getPositionAt(simTime()), simTime().dbl(), traciVehicle->getLaneIndex());
             updateCsCt.record(false);
             newCsCt.record(true);
         }
@@ -121,6 +125,9 @@ void PhantomTrafficAppLayer::onPTM(PhantomTrafficMessage* ptm)
     else
     {
         aboveThreshold.record(0);
+        if(treshold_change) traciVehicle->setColor(this->thresholdColor);
+        treshold_change = false;
+        //traciVehicle->setColor(normalColor);
     }
     
     drivingChange = false;
@@ -132,7 +139,7 @@ void PhantomTrafficAppLayer::onPTM(PhantomTrafficMessage* ptm)
         auto ptmItem = item.second;
 
         if(ptmItem.cl == traciVehicle->getLaneIndex()) {
-            if(0 < traci->getDistance(mobility->getPositionAt(simTime()), ptmItem.cs, true) && traci->getDistance(mobility->getPositionAt(simTime()), ptmItem.cs, true) < 3000) {
+            if(0 < traci->getDistance(mobility->getPositionAt(simTime()), ptmItem.cs, true) && traci->getDistance(mobility->getPositionAt(simTime()), ptmItem.cs, true) < activation_range) {
                 drivingChange = true;
                break;
             }
@@ -211,7 +218,8 @@ void PhantomTrafficAppLayer::handlePositionUpdate(cObject* obj)
     if(drivingChange) {
         drvChange.record(1);
         bool stopAccel = true;
-        double createDistance = 0;
+        /*
+        double createDistance = 0.0d;
 
         for(int i = 0; i < beaconData.size(); i++) {
             //from all beaconData check which cars are in front of you. Meaning is the distance positive and on the same lane.
@@ -219,7 +227,7 @@ void PhantomTrafficAppLayer::handlePositionUpdate(cObject* obj)
                 double cur_gap = traci->getDistance(mobility->getPositionAt(simTime()), beaconData[i].position, true);
                 double gap_n = beaconData[i].speed * seconds_gap + 0.5 * pow(beaconData[i].acceleration, seconds_gap);
                 if(cur_gap < gap_n) {
-                    stopAccel = false;
+                    stopAccel = true;
                     createDistance = gap_n - cur_gap;
                     break;
                 }
@@ -227,6 +235,7 @@ void PhantomTrafficAppLayer::handlePositionUpdate(cObject* obj)
         }
 
         createDistanceLog.record(createDistance);
+        */
 
         //Don't accelerate until you have a big enough gap (gap_n) between itself and next car. (distance predecessor travels in 2s)
         //To calculate gap_n (all in m/s): curSpeedPred * 2 + 0.5 * (curAccelPred ^ 2)
@@ -258,6 +267,7 @@ void PhantomTrafficAppLayer::handlePositionUpdate(cObject* obj)
         }
     }
     else {
+        stopAcc.record(0);
         drvChange.record(0);
         traciVehicle->setParameter("accel", 2.5);
         traciVehicle->setParameter("decel", 4.5);

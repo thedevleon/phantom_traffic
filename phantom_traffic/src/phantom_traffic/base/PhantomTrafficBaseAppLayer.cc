@@ -72,6 +72,8 @@ void PhantomTrafficBaseAppLayer::initialize(int stage)
         updateCsCt.setName("updateCsCt");
         newCsCt.setName("newCsCt");
         createDistanceLog.setName("createDistance");
+        curGap.setName("curGap");
+        gapN.setName("gap_n");
     }
     else if (stage == 1) {
 

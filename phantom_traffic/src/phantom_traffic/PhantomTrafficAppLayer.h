@@ -18,11 +18,14 @@ protected:
     bool drivingChange = false;
     
     //Research parameters
-    double seconds_gap = 2;             //keep a 2/3s gap with predecesor
+    double seconds_gap = 10;             //keep a 2/3s gap with predecesor
     double v_a_threshold = 81 / 3.6;    //average speed the cars need to drop below for the system to activate (22.5 m/s)
     double beacon_time = 1;             //time interval used to calculate v_a (also duration beacons get stored)
     double c_time = 10;                 //time interval in which c-values are considered relevant (also duration c-values get stored)
     double update_range = 50;           //Range in which a new cs/ct should be considered the same
+    double activation_range = 500;
+
+    double treshold_change = false;
 
     struct SBeaconData{
         double time;
@@ -48,6 +51,7 @@ protected:
     
     std::vector<struct SBeaconData>beaconData;
 
+    const veins::TraCIColor thresholdColor = veins::TraCIColor(0,255,255,255);
     const veins::TraCIColor driveChangedColor = veins::TraCIColor(182,44,217,255);
     const veins::TraCIColor normalColor = veins::TraCIColor(255,140,0,255);
 
