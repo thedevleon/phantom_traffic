@@ -209,11 +209,11 @@ void PhantomTrafficAppLayer::handlePositionUpdate(cObject* obj)
         //Don't accelerate until you have a big enough gap (gap_n) between itself and next car. (distance predecessor travels in 2s)
         //To calculate gap_n (all in m/s): curSpeedPred * 2 + 0.5 * (curAccelPred ^ 2)
         //curPositionPred - curPosition (cur_gap) > gap_n
-        //While cur_gap < gap_n (<= 3km) change the car's "decel" value from 4.5 to something higher (to simulate unnecessairily strong breaks)
-        //While gap_n < cur_gap (<= 3km) change the car's "decel" value back to 4.5
+        //While cur_gap < gap_n (<= 3km) slow down the car to a maximum of slowdown_speed
+        //While cur_gap > gap_n let the car speed up again
         if(stopAccel) {
             stopAcc.record(1);
-            if(this->curSpeed - 1 > 13.8)
+            if(this->curSpeed - 1 > slowdown_speed)
             {
                 traciVehicle->setMaxSpeed(this->curSpeed - 1);
                 //traciVehicle->setSpeed(this->curSpeed - 1);

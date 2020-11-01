@@ -25,6 +25,7 @@ protected:
     double update_range = 100;          //Range in which a new cs/ct should be considered the same
     double forward_range = 150;
     double congestion_range = 1000;
+    double slowdown_speed = 80 / 3.6;
 
     struct SBeaconData{
         double time;
