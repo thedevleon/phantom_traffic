@@ -6,7 +6,7 @@ Source Repository for NES Project.
 - OMNeT++ 5.5.1 (see <https://omnetpp.org/>)
 - SUMO (v1_7_0)
 - Veins 5.0 (see <http://veins.car2x.org/>)
-- Plexe
+- Plexe (only for reference, not needed)
 
 ## Resources
 ### General
@@ -18,7 +18,6 @@ Source Repository for NES Project.
 - Build a Highway: https://sumo.dlr.de/docs/Tutorials/Autobahn.html 
 - Import Map: https://sumo.dlr.de/docs/Tutorials/Import_from_OpenStreetMap.html#convert_the_map_in_a_sumo_network 
 - Create Map from OSM: https://sumo.dlr.de/docs/Tutorials/OSMWebWizard.html 
-- New controller could be implemented here
 
 ### Veins
 - Documentation: https://veins.car2x.org/
@@ -59,7 +58,7 @@ make
 
 ### 5. Open Project in Eclipse
 You should be able to import the project into your own workspace in eclipse now.
-Simply choose this folder, and you should be able to import phantom_traffic, plexe-veins, and veins.
+Simply choose this folder, and you should be able to import phantom_traffic, plexe, and veins.
 
 ## Running Examples
 
@@ -69,6 +68,8 @@ cd veins/
 ./sumo-launchd.py -vv -c sumo-gui
 ```
 Then you can run the simulations.
+Two configurations are available: `Default`, and `NoAlgorithm`, running the cars with and without the algorithm active.
+Further configuration changes can be made in the `omnetpp.ini` file.
 
 ```bash
 cd phantom_traffic/simulations/ring
@@ -84,8 +85,7 @@ To see the Qtenv (which shows communications and events), run with `Qtenv` inste
 
 Hit run in Qtenv and then sumo-gui should pop up, hit run there as well.
 
-Or try running it directly in OMNet++ by clicking on the omnetpp.ini and hitting run. Might work. Might not work. Not tested enough.
-
+It can also be run directly in OMNet++ by clicking on the omnetpp.ini and hitting run.
 
 # Source Study Fidings
 - Veins provides 802.11p PHY and MAC layer (src/veins/model/phy and src/veins/model/mac) - there's also an demo application layer, however it's quite complex.
@@ -125,8 +125,3 @@ The application layer get's a position update every step of the simulation from 
 - Plexe provides a simple protocol, found in BaseProtocol and is extended to a slotted Beaconing protocl in SlottedBeaconing. The Base Protocol has messages with vehicle information that are unicasted.
 
 - Plexe also provides a Base Application layer that uses the Base Protocol. Could be modified and extended for our purposes.
-
-# TODO
-- Make our own Application Layer based on the provided application layer and by by combining TraCIDemo11p and TraCIDemoRSU11p for accessing vehicle data
-- Make our own Message based on the PlatooningBeacon
-- Add random seeds
